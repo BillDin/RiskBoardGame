@@ -5,12 +5,12 @@
  * Section: 11 AM
  *
  * Name: John Owen
- * Date: 11/13
- * Time: 11:45 AM
+ * Date: 11/8
+ * Time: 12:08 AM
  *
- * Project: csci205_Final_Project
+ * Project: csci205FinalProject
  * Package: main
- * Class: Board
+ * Class: HelloWorld
  *
  * Description:
  *
@@ -19,6 +19,8 @@
 
 package main;
 
-public class Board {
-
+public class HelloWorld {
+    public void main(String[] args){
+        System.out.println("Hello World");
+    }
 }
