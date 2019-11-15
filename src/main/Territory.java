@@ -52,5 +52,7 @@ public class Territory {
         adjacent = neighbors;
     }
 
-    public Territory[] 
+    public Territory[] getAdjacent(){
+        return adjacent;
+    }
 }
