@@ -30,6 +30,17 @@ public class Board {
     private Territory ontario;
     private Territory quebec;
     private Territory westUS;
+    private Territory argentina;
+    private Territory brazil;
+    private Territory peru;
+    private Territory venezuela;
+    private Territory greatBritain;
+    private Territory iceland;
+    private Territory northEurope;
+    private Territory scandanavia;
+    private Territory southEurope;
+    private Territory ukraine;
+    private Territory westEurope;
 
     public Board(){
         alaska = new Territory("Alaska");
@@ -41,5 +52,16 @@ public class Board {
         ontario = new Territory("Ontario");
         quebec = new Territory("Quebec");
         westUS = new Territory("Western US");
+        argentina = new Territory("Argentina");
+        brazil = new Territory("Brazil");
+        peru = new Territory("Peru");
+        venezuela = new Territory("Venezuela");
+        greatBritain = new Territory("Great Britain");
+        iceland = new Territory("Iceland");
+        northEurope = new Territory("Northern Europe");
+        scandanavia = new Territory("Scandanavia");
+        southEurope = new Territory("Southern Europe");
+        ukraine = new Territory("Ukraine");
+        westEurope = new Territory("Western Europe");
     }
 }

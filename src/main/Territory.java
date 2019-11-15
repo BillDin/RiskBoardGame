@@ -19,14 +19,16 @@
 
 package main;
 
+import java.util.ArrayList;
+
 public class Territory {
-    private Territory[] adjacent;
+    private ArrayList<Territory> adjacent;
     private String name;
     private int numArmies;
     private String owner;
 
     public Territory(String title){
-        adjacent = null;
+        adjacent = new ArrayList<>();
         name = title;
         owner = null;
         numArmies = 0;
@@ -48,11 +50,11 @@ public class Territory {
         return owner;
     }
 
-    public void setAdjacent(Territory[] neighbors){
-        adjacent = neighbors;
+    public boolean addAdjacent(Territory neighbor){
+        return adjacent.add(neighbor);
     }
 
-    public Territory[] getAdjacent(){
+    public ArrayList<Territory> getAdjacent(){
         return adjacent;
     }
 }
