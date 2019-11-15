@@ -36,6 +36,10 @@ public class Territory {
         numArmies = num;
     }
 
+    public void increaseArmies(int num) {numArmies += num;}
+
+    public void decreaseArmies(int num) {numArmies -= num;}
+
     public int getArmies(){
         return numArmies;
     }
