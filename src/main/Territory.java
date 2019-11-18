@@ -38,6 +38,18 @@ public class Territory {
         numArmies = num;
     }
 
+    public void increaseArmies(int num) {
+        numArmies += num;
+    }
+
+    public void decreaseArmies(int num) {
+        numArmies -= num;
+        if (numArmies < 0){
+            numArmies = 0;
+        }
+    }
+
+
     public int getArmies(){
         return numArmies;
     }
@@ -56,5 +68,17 @@ public class Territory {
 
     public ArrayList<Territory> getAdjacent(){
         return adjacent;
+    }
+
+    public String toString(){
+        return name;
+    }
+
+    public String getAdjacentString(){
+        String retStr = "";
+        for(int i = 0; i< adjacent.size(); i++){
+            retStr += adjacent.get(i) +"\n";
+        }
+        return retStr;
     }
 }
