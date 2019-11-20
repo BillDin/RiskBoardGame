@@ -16,10 +16,11 @@
  *
  * ****************************************
  */
-package Board;
+package main;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import main.SVGEnum;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Board;
+package main;
 
 import javafx.scene.shape.SVGPath;
 

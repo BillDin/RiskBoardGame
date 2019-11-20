@@ -1,4 +1,4 @@
-package GameManaging;
+package main;
 
 public enum GameStateEnum {
 

@@ -1,6 +1,5 @@
-package MVC;
+package main;
 
-import Board.Map;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
-public class TestMap extends Application {
+public class RiskMain extends Application {
 
     public static void main(String[] args) {
         launch(args);
