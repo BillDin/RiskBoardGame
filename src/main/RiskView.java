@@ -1,16 +1,24 @@
 package main;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
-public class RiskView extends Application {
+public class RiskView {
 
-    public static void main(String[] args) {
-        launch(args);
+    private Map map;
+    private Scene scene;
+    private RiskModel theModel;
+
+    public Scene getScene() {
+        return scene;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-
+    public RiskView(RiskModel theModel) {
+        this.theModel = theModel;
+        map = new Map();
+        Pane pane = new Pane();
+        pane.getChildren().addAll(map.getPathList());
+        pane.setStyle("-fx-background-color: #00FFFF");
+        scene = new Scene(pane);
     }
 }

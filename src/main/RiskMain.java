@@ -10,18 +10,26 @@ import javafx.stage.Stage;
 
 public class RiskMain extends Application {
 
+    RiskView theView;
+    RiskModel theModel;
+    RiskController theController;
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        theModel = new RiskModel();
+        theView = new RiskView(theModel);
+        theController = new RiskController(theModel, theView);
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        Map map = new Map();
-        Pane pane = new Pane();
-        pane.getChildren().addAll(map.getPathList());
-        pane.setStyle("-fx-background-color: #00FFFF");
-        Scene scene = new Scene(pane);
-        primaryStage.setTitle("TestMap");
+        Scene scene = theView.getScene();
+        primaryStage.setTitle("Risk Classic");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -81,4 +81,8 @@ public class Territory {
         }
         return retStr;
     }
+
+    public String getName() {
+        return name;
+    }
 }
