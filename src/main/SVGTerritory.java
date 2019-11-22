@@ -1,5 +1,6 @@
 package main;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.shape.SVGPath;
 
 public class SVGTerritory extends SVGPath {

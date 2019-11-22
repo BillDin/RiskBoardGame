@@ -19,6 +19,9 @@
 
 package main;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.util.ArrayList;
 
 public class Territory {
@@ -26,20 +29,24 @@ public class Territory {
     private String name;
     private int numArmies;
     private String owner;
+    private SimpleIntegerProperty armyProperty;
 
     public Territory(String title){
         adjacent = new ArrayList<>();
         name = title;
         owner = null;
         numArmies = 0;
+        armyProperty = new SimpleIntegerProperty(numArmies);
     }
 
     public void setNumArmies(int num){
         numArmies = num;
+        armyProperty.set(num);
     }
 
     public void increaseArmies(int num) {
         numArmies += num;
+        armyProperty.set(numArmies);
     }
 
     public void decreaseArmies(int num) {
@@ -47,6 +54,7 @@ public class Territory {
         if (numArmies < 0){
             numArmies = 0;
         }
+        armyProperty.set(numArmies);
     }
 
 

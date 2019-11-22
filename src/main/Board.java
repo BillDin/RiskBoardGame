@@ -19,7 +19,11 @@
 
 package main;
 
+import java.util.HashMap;
+
 public class Board {
+
+    private HashMap<String, SVGTerritory> nodeMap;
 
     //North America
     private Territory alaska;

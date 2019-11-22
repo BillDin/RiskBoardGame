@@ -8,6 +8,9 @@ public class RiskController {
     public RiskController(RiskModel theModel, RiskView theView) {
         this.theModel = theModel;
         this.theView = theView;
+
+
+
     }
 
 }
