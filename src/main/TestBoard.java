@@ -20,22 +20,24 @@ package main;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import main.SVGEnum;
 
 import java.util.ArrayList;
 
-public class Map {
+public class TestBoard {
 
-    ArrayList<SVGPath> pathList;
+    ArrayList<SVGTerritory> pathList;
 
-    public ArrayList<SVGPath> getPathList() {
+    public ArrayList<SVGTerritory> getPathList() {
         return pathList;
     }
 
-    public Map() {
+    public TestBoard() {
         pathList = new ArrayList<>();
         for (SVGEnum svgEnum: SVGEnum.values()) {
-            SVGPath path = svgEnum.getPath();
+            SVGTerritory path = new SVGTerritory();
+            path.setContent(svgEnum.getsPath());
+            path.setName(svgEnum.getId());
+            path.setContinent(svgEnum.getContinent());
             path.setStroke(Color.BLACK);
             if (svgEnum.getContinent().equals("sea")){
                 path.setFill(Color.ROYALBLUE);

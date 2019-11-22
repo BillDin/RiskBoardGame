@@ -8,7 +8,7 @@ import javafx.scene.layout.*;
 
 public class RiskView {
 
-    private Map map;
+    private TestBoard testMap;
     private Scene scene;
     private RiskModel theModel;
 
@@ -26,6 +26,7 @@ public class RiskView {
         HBox topConfigPane = new HBox(5);
         topConfigPane.getChildren().add(new Label("This is supposed to be the config node."));
         Button restartBtn = new Button("Restart the game with the configs!");
+        topConfigPane.getChildren().add(restartBtn);
         root.setTop(topConfigPane);
         topConfigPane.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(topConfigPane, Pos.CENTER);
@@ -46,14 +47,20 @@ public class RiskView {
 
         leftControlPane.getChildren().addAll(attackHBox, moveHBox, diceHBox);
         root.setLeft(leftControlPane);
-        leftControlPane.setPrefWidth(50);
+        leftControlPane.setPrefWidth(150);
         leftControlPane.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(leftControlPane, Pos.CENTER);
 
         //center map pane
-        map = new Map();
+        testMap = new TestBoard();
         Pane mapPane = new Pane();
-        mapPane.getChildren().addAll(map.getPathList());
+        mapPane.getChildren().addAll(testMap.getPathList());
+        //this should go in controller
+        for (SVGTerritory svgTerritory: testMap.getPathList()) {
+            svgTerritory.setOnMouseClicked(event -> {
+                theModel.getTerritoryInfoLbl().setText(svgTerritory.toString());
+            });
+        }
         mapPane.setStyle("-fx-background-color: #00FFFF");
         root.setCenter(mapPane);
 
@@ -62,7 +69,7 @@ public class RiskView {
         rightInfoPane.getChildren().add(theModel.getTerritoryInfoLbl());
         root.setRight(rightInfoPane);
         rightInfoPane.setAlignment(Pos.CENTER);
-        rightInfoPane.setPrefWidth(50);
+        rightInfoPane.setPrefWidth(150);
         BorderPane.setAlignment(rightInfoPane, Pos.CENTER);
 
         scene = new Scene(root);

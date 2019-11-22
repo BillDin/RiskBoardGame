@@ -1,4 +1,4 @@
-module csci205.labs {
+module csci205FinalProject {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
