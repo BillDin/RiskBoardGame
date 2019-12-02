@@ -59,15 +59,11 @@ public class RiskModel {
 
         this.board = new Board();
         attackFromCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
-        attackFromCBox.setPrefWidth(5);
         attackToCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
-        attackToCBox.setPrefWidth(5);
         numAttackArmiesTField = new TextField();
         numAttackArmiesTField.setPrefColumnCount(2);
         moveFromCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
-        moveFromCBox.setPrefWidth(5);
         moveToCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
-        moveToCBox.setPrefWidth(5);
         numMoveArmiesTField = new TextField();
         numMoveArmiesTField.setPrefColumnCount(2);
     }
