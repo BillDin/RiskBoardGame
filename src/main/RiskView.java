@@ -8,7 +8,6 @@ import javafx.scene.layout.*;
 
 public class RiskView {
 
-    private TestBoard testMap;
     private Scene scene;
     private RiskModel theModel;
 
@@ -52,15 +51,8 @@ public class RiskView {
         BorderPane.setAlignment(leftControlPane, Pos.CENTER);
 
         //center map pane
-        testMap = new TestBoard();
         Pane mapPane = new Pane();
-        mapPane.getChildren().addAll(testMap.getPathList());
-        //this should go in controller
-        for (SVGTerritory svgTerritory: testMap.getPathList()) {
-            svgTerritory.setOnMouseClicked(event -> {
-                theModel.getTerritoryInfoLbl().setText(svgTerritory.toString());
-            });
-        }
+        mapPane.getChildren().addAll(theModel.getBoard().getTerritories().values());
         mapPane.setStyle("-fx-background-color: #00FFFF");
         root.setCenter(mapPane);
 

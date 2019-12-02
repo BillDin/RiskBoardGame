@@ -39,6 +39,10 @@ public class Territory {
         armyProperty = new SimpleIntegerProperty(numArmies);
     }
 
+    public SimpleIntegerProperty armyPropertyProperty() {
+        return armyProperty;
+    }
+
     public void setNumArmies(int num){
         numArmies = num;
         armyProperty.set(num);

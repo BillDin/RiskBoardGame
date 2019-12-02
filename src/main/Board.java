@@ -79,7 +79,7 @@ public class Board {
     private Territory westAustralia;
 
     private ArrayList<Territory> territoryList;
-    private HashMap<String, Territory> territories;
+    private HashMap<String, SVGTerritory> territories;
 
     public Board(){
         territories = new HashMap<>();
@@ -135,7 +135,7 @@ public class Board {
         territoryList.add(iceland);
         northEurope = new Territory("Northern Europe");
         territoryList.add(northEurope);
-        scandanavia = new Territory("Scandanavia");
+        scandanavia = new Territory("Scandinavia");
         territoryList.add(scandanavia);
         southEurope = new Territory("Southern Europe");
         territoryList.add(southEurope);
@@ -187,6 +187,7 @@ public class Board {
         territoryList.add(newGuinea);
         westAustralia = new Territory("Western Australia");
         territoryList.add(westAustralia);
+
     }
 
     private void setupNorthAmerica() {
@@ -448,9 +449,29 @@ public class Board {
         eastAustralia.addAdjacent(westAustralia);
     }
 
+    /**
+     * This is where the model takes shape, connecting data to nodes.
+     * @author Chengcheng Ding
+     */
     private void setupHashmap(){
         for(int i = 0; i < territoryList.size(); i++){
-            territories.put(territoryList.get(i).toString(), territoryList.get(i));
+            territories.put(territoryList.get(i).toString(), new SVGTerritory(territoryList.get(i)));
         }
+        for (SVGEnum svgEnum: SVGEnum.values()) {
+            try {
+                territories.get(svgEnum.getId()).setContent(svgEnum.getsPath());
+                territories.get(svgEnum.getId()).setContinent(svgEnum.getContinent());
+            } catch (NullPointerException e) {
+                System.out.println(svgEnum.getId());
+            }
+        }
+    }
+
+    public HashMap<String, SVGTerritory> getTerritories() {
+        return territories;
+    }
+
+    public ArrayList<Territory> getTerritoryList() {
+        return territoryList;
     }
 }

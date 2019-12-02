@@ -1,6 +1,8 @@
 package main;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 
 public class SVGTerritory extends SVGPath {
@@ -8,6 +10,7 @@ public class SVGTerritory extends SVGPath {
     private Territory territory;
     private String name;
     private String continent;
+    private SimpleIntegerProperty armyProperty;
 
     public String getContinent() {
         return continent;
@@ -15,6 +18,28 @@ public class SVGTerritory extends SVGPath {
 
     public void setContinent(String continent) {
         this.continent = continent;
+        this.setStroke(Color.BLACK);
+        if (continent.equals("sea")){
+            this.setFill(Color.ROYALBLUE);
+        }
+        else if(continent.equals("Africa")) {
+            this.setFill(Color.FIREBRICK);
+        }
+        else if(continent.equals("Asia")) {
+            this.setFill(Color.DARKGOLDENROD);
+        }
+        else if(continent.equals("Australia")) {
+            this.setFill(Color.RED);
+        }
+        else if(continent.equals("Europe")) {
+            this.setFill(Color.ORCHID);
+        }
+        else if(continent.equals("NA")) {
+            this.setFill(Color.BISQUE);
+        }
+        else if(continent.equals("SA")) {
+            this.setFill(Color.SEAGREEN);
+        }
     }
 
     public String getName() {
@@ -33,17 +58,17 @@ public class SVGTerritory extends SVGPath {
         this.territory = territory;
     }
 
-    public SVGTerritory() {
-        super();
-    }
-
     public SVGTerritory(Territory territory) {
         super();
         this.territory = territory;
+        this.name = territory.getName();
+        this.armyProperty = territory.armyPropertyProperty();
+
+
     }
 
     @Override
     public String toString() {
-        return String.format("Name: %s; Continent: %s", name, continent);
+        return String.format("Name: %s; Continent: %s; number of armies: %s", name, continent, armyProperty.getValue());
     }
 }

@@ -9,7 +9,11 @@ public class RiskController {
         this.theModel = theModel;
         this.theView = theView;
 
-
+        for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()){
+            svgTerritory.setOnMouseClicked(event -> {
+                theModel.getTerritoryInfoLbl().setText(svgTerritory.toString());
+            });
+        }
 
     }
 
