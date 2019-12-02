@@ -2,6 +2,10 @@ package main;
 
 import javafx.scene.control.Label;
 
+/**
+ * create the model(mostly based on the board)
+ * @author Chengcheng Ding
+ */
 public class RiskModel {
 
     private Label territoryInfoLbl;

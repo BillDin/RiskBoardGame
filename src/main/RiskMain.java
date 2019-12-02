@@ -8,6 +8,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
+/**
+ * the main class that fires up the GUI. Standard and light. Nothing much to explain.
+ * @author Chengcheng Ding
+ */
 public class RiskMain extends Application {
 
     RiskView theView;

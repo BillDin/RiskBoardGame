@@ -6,6 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
+/**
+ * A border pane view for the risk GUI
+ * @author Chengcheng Ding
+ */
 public class RiskView {
 
     private Scene scene;

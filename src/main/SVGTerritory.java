@@ -5,6 +5,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 
+/**
+ * The class that extends from the SVGPath class, storing information for usage.
+ * @author Chengcheng Ding
+ */
 public class SVGTerritory extends SVGPath {
 
     private Territory territory;
@@ -16,13 +20,17 @@ public class SVGTerritory extends SVGPath {
         return continent;
     }
 
+    /**
+     * set a continent of a SVG territory, updating the color based on the continent
+     * @param continent the name of the continent
+     */
     public void setContinent(String continent) {
         this.continent = continent;
         this.setStroke(Color.BLACK);
-        if (continent.equals("sea")){
-            this.setFill(Color.ROYALBLUE);
-        }
-        else if(continent.equals("Africa")) {
+        //if (continent.equals("sea")){
+            //this.setFill(Color.ROYALBLUE);
+        //}
+        if(continent.equals("Africa")) {
             this.setFill(Color.FIREBRICK);
         }
         else if(continent.equals("Asia")) {
