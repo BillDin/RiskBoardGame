@@ -39,18 +39,20 @@ public class RiskView {
         VBox leftControlPane = new VBox(5);
 
         HBox attackHBox = new HBox(5);
-        attackHBox.getChildren().add(new Label("attack!"));
+        Button attackGoBtn = new Button("Go!");
+        attackHBox.getChildren().addAll(new Label(" Attack from "), theModel.getAttackFromCBox(), new Label(" to "), theModel.getAttackToCBox(), new Label(" with "), theModel.getNumAttackArmiesTField(), new Label(" Armies."), attackGoBtn);
 
 
         HBox moveHBox = new HBox(5);
-        moveHBox.getChildren().add(new Label("move!"));
+        Button moveGoBtn = new Button("Go!");
+        moveHBox.getChildren().addAll(new Label("Move from"), theModel.getMoveFromCBox(), new Label(" to "), theModel.getMoveToCBox(), new Label(" with "), theModel.getNumMoveArmiesTField(), new Label(" Armies."), moveGoBtn);
 
         HBox diceHBox = new HBox(5);
         diceHBox.getChildren().add(new Label("dices!"));
 
         leftControlPane.getChildren().addAll(attackHBox, moveHBox, diceHBox);
         root.setLeft(leftControlPane);
-        leftControlPane.setPrefWidth(150);
+        //leftControlPane.setPrefWidth(200);
         leftControlPane.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(leftControlPane, Pos.CENTER);
 
