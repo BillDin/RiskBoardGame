@@ -13,19 +13,19 @@ public class RiskModel {
 
     private Label territoryInfoLbl;
     private Board board;
-    private ComboBox AttackFromCBox;
-    private ComboBox<String> AttackToCBox;
+    private ComboBox attackFromCBox;
+    private ComboBox<String> attackToCBox;
     private TextField numAttackArmiesTField;
-    private ComboBox<String> MoveFromCBox;
-    private ComboBox<String> MoveToCBox;
+    private ComboBox<String> moveFromCBox;
+    private ComboBox<String> moveToCBox;
     private TextField numMoveArmiesTField;
 
     public ComboBox getAttackFromCBox() {
-        return AttackFromCBox;
+        return attackFromCBox;
     }
 
     public ComboBox<String> getAttackToCBox() {
-        return AttackToCBox;
+        return attackToCBox;
     }
 
     public TextField getNumAttackArmiesTField() {
@@ -33,11 +33,11 @@ public class RiskModel {
     }
 
     public ComboBox<String> getMoveFromCBox() {
-        return MoveFromCBox;
+        return moveFromCBox;
     }
 
     public ComboBox<String> getMoveToCBox() {
-        return MoveToCBox;
+        return moveToCBox;
     }
 
     public TextField getNumMoveArmiesTField() {
@@ -58,12 +58,16 @@ public class RiskModel {
         territoryInfoLbl.setWrapText(true);
 
         this.board = new Board();
-        AttackFromCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
-        AttackToCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
+        attackFromCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
+        attackFromCBox.setPrefWidth(5);
+        attackToCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
+        attackToCBox.setPrefWidth(5);
         numAttackArmiesTField = new TextField();
         numAttackArmiesTField.setPrefColumnCount(2);
-        MoveFromCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
-        MoveToCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
+        moveFromCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
+        moveFromCBox.setPrefWidth(5);
+        moveToCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
+        moveToCBox.setPrefWidth(5);
         numMoveArmiesTField = new TextField();
         numMoveArmiesTField.setPrefColumnCount(2);
     }

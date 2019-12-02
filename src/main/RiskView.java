@@ -23,7 +23,7 @@ public class RiskView {
 
         this.theModel = theModel;
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background-color: #DC143C");
+        root.setStyle("-fx-background-color: #dcc064");
 
         //top pane for config
         HBox topConfigPane = new HBox(5);
