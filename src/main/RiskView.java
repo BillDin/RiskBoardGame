@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 
 /**
@@ -27,6 +28,8 @@ public class RiskView {
 
         //left pane for config
         VBox leftConfigPane = new VBox(5);
+        TextField numPlayersTField = new TextField("4");
+        leftConfigPane.getChildren().addAll(numPlayersTField, new Label("Players"));
         Button restartBtn = new Button("Reconfigure!");
         leftConfigPane.getChildren().add(restartBtn);
         root.setLeft(leftConfigPane);
