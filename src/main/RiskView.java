@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 
@@ -15,6 +16,7 @@ public class RiskView {
 
     private Scene scene;
     private RiskModel theModel;
+    private Button endTuenBtn;
 
     public Scene getScene() {
         return scene;
@@ -23,6 +25,7 @@ public class RiskView {
     public RiskView(RiskModel theModel) {
 
         this.theModel = theModel;
+        this.endTuenBtn = new Button("End Turn");
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #dcc064");
 
@@ -73,6 +76,14 @@ public class RiskView {
         rightInfoPane.setAlignment(Pos.CENTER);
         rightInfoPane.setPrefWidth(150);
         BorderPane.setAlignment(rightInfoPane, Pos.CENTER);
+
+        //bot pane for turn control and players
+        HBox botTurnPane = new HBox(5);
+        botTurnPane.getChildren().addAll(theModel.getPlayerNumLbl(), new Separator(), theModel.getPlayerInfoLbl(), endTuenBtn);
+        botTurnPane.setAlignment(Pos.CENTER);
+        root.setBottom(botTurnPane);
+        BorderPane.setAlignment(botTurnPane, Pos.CENTER);
+
 
         scene = new Scene(root);
     }

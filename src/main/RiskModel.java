@@ -19,6 +19,16 @@ public class RiskModel {
     private ComboBox<String> moveFromCBox;
     private ComboBox<String> moveToCBox;
     private TextField numMoveArmiesTField;
+    private Label playerNumLbl;
+    private Label playerInfoLbl;
+
+    public Label getPlayerNumLbl() {
+        return playerNumLbl;
+    }
+
+    public Label getPlayerInfoLbl() {
+        return playerInfoLbl;
+    }
 
     public ComboBox getAttackFromCBox() {
         return attackFromCBox;
@@ -66,6 +76,10 @@ public class RiskModel {
         moveToCBox = new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
         numMoveArmiesTField = new TextField();
         numMoveArmiesTField.setPrefColumnCount(2);
+
+        playerNumLbl = new Label("Player #");
+        playerInfoLbl = new Label("Player Info");
+        playerInfoLbl.setWrapText(true);
     }
 
 }
