@@ -77,6 +77,6 @@ public class SVGTerritory extends SVGPath {
 
     @Override
     public String toString() {
-        return String.format("Name: %s; Continent: %s; number of armies: %s", name, continent, armyProperty.getValue());
+        return String.format("Name: %s;\n Continent: %s;\n number of armies: %s\n", name, continent, armyProperty.getValue());
     }
 }

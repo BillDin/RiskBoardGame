@@ -7,4 +7,8 @@ public enum GameStateEnum {
     PLAYING,
     FINISHED;
 
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

@@ -22,6 +22,7 @@ public class RiskMain extends Application {
     public void init() throws Exception {
         super.init();
         theModel = new RiskModel();
+        theModel.getGameManager().startGame();
         theView = new RiskView(theModel);
         theController = new RiskController(theModel, theView);
     }

@@ -2,10 +2,7 @@ package main;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 /**
@@ -16,7 +13,31 @@ public class RiskView {
 
     private Scene scene;
     private RiskModel theModel;
-    private Button endTuenBtn;
+    private Button endTurnBtn;
+    private Button moveBtn;
+    private Button attackBtn;
+    private Button claimBtn;
+    private Button placeBtn;
+
+    public Button getClaimBtn() {
+        return claimBtn;
+    }
+
+    public Button getPlaceBtn() {
+        return placeBtn;
+    }
+
+    public Button getEndTurnBtn() {
+        return endTurnBtn;
+    }
+
+    public Button getMoveBtn() {
+        return moveBtn;
+    }
+
+    public Button getAttackBtn() {
+        return attackBtn;
+    }
 
     public Scene getScene() {
         return scene;
@@ -25,40 +46,41 @@ public class RiskView {
     public RiskView(RiskModel theModel) {
 
         this.theModel = theModel;
-        this.endTuenBtn = new Button("End Turn");
+        this.endTurnBtn = new Button("End Turn");
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #dcc064");
 
         //left pane for config
-        VBox leftConfigPane = new VBox(5);
-        TextField numPlayersTField = new TextField("4");
-        leftConfigPane.getChildren().addAll(numPlayersTField, new Label("Players"));
-        Button restartBtn = new Button("Reconfigure!");
-        leftConfigPane.getChildren().add(restartBtn);
-        root.setLeft(leftConfigPane);
-        leftConfigPane.setAlignment(Pos.CENTER);
-        BorderPane.setAlignment(leftConfigPane, Pos.CENTER);
-
+        VBox leftLogPane = new VBox(5);
+        TextArea logTxtArea = theModel.getLogTxtArea();
+        logTxtArea.setPrefWidth(150);
+        logTxtArea.setDisable(true);
+        logTxtArea.setWrapText(true);
+        logTxtArea.setStyle("-fx-opacity: 1;" +
+                "-fx-background-color: #dcc064;" +
+                "-fx-font-size: 13;");
+        logTxtArea.appendText("Here are the logs!\n");
+        leftLogPane.getChildren().add(logTxtArea);
+        root.setLeft(leftLogPane);
 
         //top pane for control
         VBox topControlPane = new VBox(5);
 
         HBox attackHBox = new HBox(5);
         attackHBox.setAlignment(Pos.CENTER);
-        Button attackGoBtn = new Button("Go!");
-        attackHBox.getChildren().addAll(new Label(" Attack from "), theModel.getAttackFromCBox(), new Label(" to "), theModel.getAttackToCBox(), new Label(" with "), theModel.getNumAttackArmiesTField(), new Label(" Armies."), attackGoBtn);
+        attackBtn = new Button("Attack!");
+        attackHBox.getChildren().addAll(new Label("Attack to "), theModel.getAttackToCBox(), new Label(" with "), theModel.getNumAttackArmiesTField(), new Label(" Armies."), attackBtn);
 
 
         HBox moveHBox = new HBox(5);
         moveHBox.setAlignment(Pos.CENTER);
-        Button moveGoBtn = new Button("Go!");
-        moveHBox.getChildren().addAll(new Label("Move from"), theModel.getMoveFromCBox(), new Label(" to "), theModel.getMoveToCBox(), new Label(" with "), theModel.getNumMoveArmiesTField(), new Label(" Armies."), moveGoBtn);
+        moveBtn = new Button("Move!");
+        moveHBox.getChildren().addAll(new Label("Move to "), theModel.getMoveToCBox(), new Label(" with "), theModel.getNumMoveArmiesTField(), new Label(" Armies."), moveBtn);
 
-        HBox diceHBox = new HBox(5);
-        diceHBox.setAlignment(Pos.CENTER);
-        diceHBox.getChildren().add(new Label("dices!"));
+        claimBtn = new Button("Claim!");
+        placeBtn = new Button("Place!");
 
-        topControlPane.getChildren().addAll(attackHBox, moveHBox, diceHBox);
+        topControlPane.getChildren().addAll(attackHBox, moveHBox, claimBtn, placeBtn);
         root.setTop(topControlPane);
         topControlPane.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(topControlPane, Pos.CENTER);
@@ -79,7 +101,7 @@ public class RiskView {
 
         //bot pane for turn control and players
         HBox botTurnPane = new HBox(5);
-        botTurnPane.getChildren().addAll(theModel.getPlayerNumLbl(), new Separator(), theModel.getPlayerInfoLbl(), endTuenBtn);
+        botTurnPane.getChildren().addAll(theModel.getPlayerNumLbl(), new Separator(), theModel.getGameStateInfoLbl(), endTurnBtn);
         botTurnPane.setAlignment(Pos.CENTER);
         root.setBottom(botTurnPane);
         BorderPane.setAlignment(botTurnPane, Pos.CENTER);
