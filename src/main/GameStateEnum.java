@@ -2,7 +2,7 @@ package main;
 
 public enum GameStateEnum {
 
-    FINDORDER,
+    CLAIM,
     SETUP,
     PLAYING,
     FINISHED;

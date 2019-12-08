@@ -13,6 +13,7 @@ public class RiskController {
         for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()){
             svgTerritory.setOnMouseClicked(event -> {
                 theModel.getTerritoryInfoLbl().setText(svgTerritory.toString());
+                theModel.getBoard().setSelectedTerritory(svgTerritory.getName());
             });
         }
 

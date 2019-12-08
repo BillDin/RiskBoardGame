@@ -20,6 +20,7 @@
 package main;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Territory {
     private int numArmies;
     private String owner;
     private SimpleIntegerProperty armyProperty;
+    private SimpleBooleanProperty ownedProperty;
 
     public Territory(String title){
         adjacent = new ArrayList<>();
@@ -37,6 +39,16 @@ public class Territory {
         owner = null;
         numArmies = 0;
         armyProperty = new SimpleIntegerProperty(numArmies);
+        ownedProperty = new SimpleBooleanProperty(false);
+    }
+
+    public boolean isClaimed() {
+        return ownedProperty.getValue();
+    }
+
+    public void claim() {
+        ownedProperty.set(true);
+        increaseArmies(1);
     }
 
     public SimpleIntegerProperty armyPropertyProperty() {

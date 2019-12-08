@@ -80,10 +80,23 @@ public class Board {
 
     private ArrayList<Territory> territoryList;
     private HashMap<String, SVGTerritory> territories;
+    private GameStateEnum state;
+    private HashMap<Integer, Player> mapPlayers;
+    private final int NUM_PLAYERS = 4;
+    private String selectedTerritory;
+
+    public String getSelectedTerritory() {
+        return selectedTerritory;
+    }
+
+    public void setSelectedTerritory(String selectedTerritory) {
+        this.selectedTerritory = selectedTerritory;
+    }
 
     public Board(){
         territories = new HashMap<>();
         territoryList = new ArrayList<>();
+        this.state = GameStateEnum.CLAIM;
 
         initTerritories();
 
@@ -100,6 +113,47 @@ public class Board {
         setupAustralia();
 
         setupHashmap();
+
+        for (int i = 1; i <= NUM_PLAYERS; i++) {
+            mapPlayers.put(i, new Player(0));
+        }
+
+    }
+
+    /**
+     * a player claim a territory
+     * @param playerNum the index of the player
+     * @param territory the territory to be claimed
+     * @throws IlleagalTerritoryOpException if the territory is already claimed
+     * @author Chengcheng Ding
+     */
+    public void playerClaim(int playerNum, String territory) throws IlleagalTerritoryOpException {
+        if (this.state == GameStateEnum.CLAIM){
+            if (territories.get(territory).getTerritory().isClaimed()) {
+                throw new IlleagalTerritoryOpException();
+            }
+            else {
+                mapPlayers.get(playerNum).claim(territory);
+                territories.get(territory).getTerritory().claim();
+            }
+        }
+    }
+
+    /**
+     * the player place troops
+     * @param playerNum the index og the player
+     * @param territory the territory to place troops on
+     * @param numArmies number of armies
+     * @throws IlleagalTerritoryOpException if the player does own the territory
+     * @author Chengcheng Ding
+     */
+    public void playerPlaceTroop(int playerNum, String territory, int numArmies) throws IlleagalTerritoryOpException {
+        if (mapPlayers.get(playerNum).owns(territory)) {
+            territories.get(territory).getTerritory().increaseArmies(numArmies);
+        }
+        else {
+            throw new IlleagalTerritoryOpException();
+        }
     }
 
     private void initTerritories() {
