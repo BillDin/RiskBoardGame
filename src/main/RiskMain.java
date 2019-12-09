@@ -22,7 +22,6 @@ public class RiskMain extends Application {
     public void init() throws Exception {
         super.init();
         theModel = new RiskModel();
-        theModel.getGameManager().startGame();
         theView = new RiskView(theModel);
         theController = new RiskController(theModel, theView);
     }
@@ -33,9 +32,11 @@ public class RiskMain extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        theController.startGame();
         Scene scene = theView.getScene();
         primaryStage.setTitle("Risk Classic");
         primaryStage.setScene(scene);
         primaryStage.show();
+        //System.out.println(theView.getMapPane().getWidth() + ", " + theView.getMapPane().getHeight());
     }
 }

@@ -3,23 +3,16 @@ package main;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-
-/**
- * @author Chengcheng Ding
- */
 public class RiskController {
 
-    RiskModel theModel;
-    RiskView theView;
+    private RiskModel theModel;
+    private RiskView theView;
 
-    public RiskController(RiskModel theModel, RiskView theView) {
-        this.theModel = theModel;
-        this.theView = theView;
+    public RiskController(RiskModel Model, RiskView View) {
+        this.theModel = Model;
+        this.theView = View;
 
-        //TODO: use log stream to show logs on the left.
-
-        //Show the info of a territory when clicked on.
+        //Show the info of a territory when hovered on.
         for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()){
             svgTerritory.setOnMouseEntered(event -> {
                 theModel.getTerritoryInfoLbl().setText(svgTerritory.toString());
@@ -36,7 +29,7 @@ public class RiskController {
         //Attack
         theView.getAttackBtn().setOnAction(event -> {
             try {
-                theModel.getGameManager().playerAttack(theModel.getAttackToCBox().getValue());
+                theModel.getGameManager().playerAttack(theModel.getAttackToCBox().getValue(), Integer.parseInt(theModel.getNumAttackArmiesTField().getText()));
             } catch (IlleagalTerritoryOpException e) {
                 showAlert();
             }
@@ -51,6 +44,7 @@ public class RiskController {
         theView.getClaimBtn().setOnAction(event -> {
             try {
                 theModel.getGameManager().playerClaim();
+                updateInfo();
             } catch (IlleagalTerritoryOpException e) {
                 showAlert();
             }
@@ -60,6 +54,7 @@ public class RiskController {
         theView.getPlaceBtn().setOnAction(event -> {
             try {
                 theModel.getGameManager().playerPlaceTroop();
+                updateInfo();
             } catch (IlleagalTerritoryOpException e) {
                 showAlert();
             }
@@ -68,8 +63,7 @@ public class RiskController {
         theView.getEndTurnBtn().setOnAction(event -> {
             theModel.getGameManager().getLogStream().println("Turn ended for Player " + theModel.getGameManager().getCurPlayer());
             theModel.getGameManager().nextTurn();
-            theModel.getPlayerNumLbl().setText("Player " + theModel.getGameManager().getCurPlayer());
-            theModel.getGameStateInfoLbl().setText(theModel.getGameManager().getState().toString());
+            updateInfo();
         });
 
     }
@@ -80,6 +74,16 @@ public class RiskController {
         illegalOpAlert.setTitle("Bad Boy!");
         illegalOpAlert.setContentText("Illegal Operation! Probably the territory is not owned by you!");
         illegalOpAlert.show();
+    }
+
+    public void startGame() {
+        theModel.getGameManager().startGame();
+        updateInfo();
+    }
+
+    public void updateInfo() {
+        theModel.getPlayerNumLbl().setText("Player " + theModel.getGameManager().getCurPlayer());
+        theModel.getGameStateInfoLbl().setText("Current State: " + theModel.getGameManager().getState().toString());
     }
 
 }

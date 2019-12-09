@@ -1,5 +1,6 @@
 package main;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,6 +19,16 @@ public class RiskView {
     private Button attackBtn;
     private Button claimBtn;
     private Button placeBtn;
+    private Pane mapPane;
+    private BorderPane root;
+
+    public BorderPane getRoot() {
+        return root;
+    }
+
+    public Pane getMapPane() {
+        return mapPane;
+    }
 
     public Button getClaimBtn() {
         return claimBtn;
@@ -47,13 +58,14 @@ public class RiskView {
 
         this.theModel = theModel;
         this.endTurnBtn = new Button("End Turn");
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         root.setStyle("-fx-background-color: #dcc064");
 
         //map pane
-        Pane mapPane = new Pane();
+        mapPane = new Pane();
         mapPane.getChildren().addAll(theModel.getBoard().getTerritories().values());
         mapPane.setStyle("-fx-background-color: #00FFFF");
+        BorderPane.setMargin(mapPane, new Insets(0));
         root.setCenter(mapPane);
 
         //right info pane
@@ -70,15 +82,17 @@ public class RiskView {
 
 
         rightInfoPane.getChildren().add(theModel.getTerritoryInfoLbl());
+        rightInfoPane.getChildren().addAll(theModel.getPlayerNumLbl(), theModel.getGameStateInfoLbl(), endTurnBtn);
         root.setRight(rightInfoPane);
         rightInfoPane.setAlignment(Pos.CENTER);
         rightInfoPane.setPrefWidth(150);
         BorderPane.setAlignment(rightInfoPane, Pos.CENTER);
+        BorderPane.setMargin(rightInfoPane, new Insets(0));
 
         //bot pane for turn control and players
         HBox botTurnPane = new HBox(5);
 
-        VBox topControlPane = new VBox(5);
+        VBox controlPane = new VBox(5);
 
         HBox attackHBox = new HBox(5);
         attackHBox.setAlignment(Pos.CENTER);
@@ -94,15 +108,15 @@ public class RiskView {
         claimBtn = new Button("Claim!");
         placeBtn = new Button("Place!");
 
-        topControlPane.getChildren().addAll(attackHBox, moveHBox, claimBtn, placeBtn);
-        topControlPane.setAlignment(Pos.CENTER);
-        BorderPane.setAlignment(topControlPane, Pos.CENTER);
+        controlPane.getChildren().addAll(attackHBox, moveHBox, claimBtn, placeBtn);
+        controlPane.setAlignment(Pos.CENTER);
+        BorderPane.setAlignment(controlPane, Pos.CENTER);
 
-        botTurnPane.getChildren().add(topControlPane);
-        botTurnPane.getChildren().addAll(theModel.getPlayerNumLbl(), new Separator(), theModel.getGameStateInfoLbl(), endTurnBtn);
+        botTurnPane.getChildren().add(controlPane);
         botTurnPane.setAlignment(Pos.CENTER);
         root.setBottom(botTurnPane);
         BorderPane.setAlignment(botTurnPane, Pos.CENTER);
+        BorderPane.setMargin(botTurnPane, new Insets(0));
 
 
         scene = new Scene(root);
