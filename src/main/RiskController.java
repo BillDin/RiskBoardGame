@@ -12,6 +12,7 @@ public class RiskController {
         this.theModel = Model;
         this.theView = View;
 
+        //the resizing feature, has pros and cons...
         for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()) {
             svgTerritory.scaleXProperty().bind(theView.getMapPane().widthProperty().divide(1015));
             svgTerritory.scaleYProperty().bind(theView.getMapPane().heightProperty().divide(675));
