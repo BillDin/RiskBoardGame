@@ -12,6 +12,11 @@ public class RiskController {
         this.theModel = Model;
         this.theView = View;
 
+        for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()) {
+            svgTerritory.scaleXProperty().bind(theView.getMapPane().widthProperty().divide(1015));
+            svgTerritory.scaleYProperty().bind(theView.getMapPane().heightProperty().divide(675));
+        }
+
         //Show the info of a territory when hovered on.
         for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()){
             svgTerritory.setOnMouseEntered(event -> {
