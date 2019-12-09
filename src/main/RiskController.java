@@ -15,7 +15,7 @@ public class RiskController {
         //the resizing feature, has pros and cons...
         for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()) {
             svgTerritory.scaleXProperty().bind(theView.getMapPane().widthProperty().divide(1015));
-            svgTerritory.scaleYProperty().bind(theView.getMapPane().heightProperty().divide(675));
+            svgTerritory.scaleYProperty().bind(theView.getMapPane().heightProperty().divide(647));
         }
 
         //Show the info of a territory when hovered on.
