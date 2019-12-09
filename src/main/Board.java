@@ -190,7 +190,6 @@ public class Board {
         territoryList.add(newGuinea);
         westAustralia = new Territory("Western Australia");
         territoryList.add(westAustralia);
-
     }
 
     private void setupNorthAmerica() {

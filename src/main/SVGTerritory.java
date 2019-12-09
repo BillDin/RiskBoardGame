@@ -37,7 +37,7 @@ public class SVGTerritory extends SVGPath {
             this.setFill(Color.DARKGOLDENROD);
         }
         else if(continent.equals("Australia")) {
-            this.setFill(Color.RED);
+            this.setFill(Color.BLUE);
         }
         else if(continent.equals("Europe")) {
             this.setFill(Color.ORCHID);
@@ -71,12 +71,14 @@ public class SVGTerritory extends SVGPath {
         this.territory = territory;
         this.name = territory.getName();
         this.armyProperty = territory.armyPropertyProperty();
-
-
     }
 
     @Override
     public String toString() {
-        return String.format("Name: %s;\n Continent: %s;\n number of armies: %s\n", name, continent, armyProperty.getValue());
+        return String.format("Name: %s;\n Continent: %s;\n number of armies: %s\n Owner: %s", name, continent, armyProperty.getValue(), getOwner());
+    }
+
+    public String getOwner() {
+        return territory.getOwner();
     }
 }

@@ -1,6 +1,7 @@
 package main;
 
 import javafx.scene.control.Alert;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -20,9 +21,15 @@ public class RiskController {
 
         //Show the info of a territory when clicked on.
         for (SVGTerritory svgTerritory: theModel.getBoard().getTerritories().values()){
-            svgTerritory.setOnMouseClicked(event -> {
+            svgTerritory.setOnMouseEntered(event -> {
                 theModel.getTerritoryInfoLbl().setText(svgTerritory.toString());
+            });
+            svgTerritory.setOnMouseClicked(event -> {
                 theModel.getGameManager().setSelectedTerritory(svgTerritory.getName());
+                for (SVGTerritory tempTerritory: theModel.getBoard().getTerritories().values()){
+                    tempTerritory.setContinent(tempTerritory.getContinent());
+                }
+                svgTerritory.setFill(Color.GOLD);
             });
         }
 

@@ -50,8 +50,14 @@ public class RiskView {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #dcc064");
 
-        //left pane for config
-        VBox leftLogPane = new VBox(5);
+        //map pane
+        Pane mapPane = new Pane();
+        mapPane.getChildren().addAll(theModel.getBoard().getTerritories().values());
+        mapPane.setStyle("-fx-background-color: #00FFFF");
+        root.setCenter(mapPane);
+
+        //right info pane
+        VBox rightInfoPane = new VBox();
         TextArea logTxtArea = theModel.getLogTxtArea();
         logTxtArea.setPrefWidth(150);
         logTxtArea.setDisable(true);
@@ -60,10 +66,18 @@ public class RiskView {
                 "-fx-background-color: #dcc064;" +
                 "-fx-font-size: 13;");
         logTxtArea.appendText("Here are the logs!\n");
-        leftLogPane.getChildren().add(logTxtArea);
-        root.setLeft(leftLogPane);
+        rightInfoPane.getChildren().add(logTxtArea);
 
-        //top pane for control
+
+        rightInfoPane.getChildren().add(theModel.getTerritoryInfoLbl());
+        root.setRight(rightInfoPane);
+        rightInfoPane.setAlignment(Pos.CENTER);
+        rightInfoPane.setPrefWidth(150);
+        BorderPane.setAlignment(rightInfoPane, Pos.CENTER);
+
+        //bot pane for turn control and players
+        HBox botTurnPane = new HBox(5);
+
         VBox topControlPane = new VBox(5);
 
         HBox attackHBox = new HBox(5);
@@ -81,26 +95,10 @@ public class RiskView {
         placeBtn = new Button("Place!");
 
         topControlPane.getChildren().addAll(attackHBox, moveHBox, claimBtn, placeBtn);
-        root.setTop(topControlPane);
         topControlPane.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(topControlPane, Pos.CENTER);
 
-        //center map pane
-        Pane mapPane = new Pane();
-        mapPane.getChildren().addAll(theModel.getBoard().getTerritories().values());
-        mapPane.setStyle("-fx-background-color: #00FFFF");
-        root.setCenter(mapPane);
-
-        //right info pane
-        VBox rightInfoPane = new VBox();
-        rightInfoPane.getChildren().add(theModel.getTerritoryInfoLbl());
-        root.setRight(rightInfoPane);
-        rightInfoPane.setAlignment(Pos.CENTER);
-        rightInfoPane.setPrefWidth(150);
-        BorderPane.setAlignment(rightInfoPane, Pos.CENTER);
-
-        //bot pane for turn control and players
-        HBox botTurnPane = new HBox(5);
+        botTurnPane.getChildren().add(topControlPane);
         botTurnPane.getChildren().addAll(theModel.getPlayerNumLbl(), new Separator(), theModel.getGameStateInfoLbl(), endTurnBtn);
         botTurnPane.setAlignment(Pos.CENTER);
         root.setBottom(botTurnPane);
