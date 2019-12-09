@@ -22,7 +22,6 @@ package main;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
 
 public class DiceRoller {
 
@@ -41,30 +40,26 @@ public class DiceRoller {
         return result;
     }
 
-    public static ArrayList<Integer> attackRoll(Territory atkTerritory){
-        Scanner in  = new Scanner(System.in);
-        System.out.println("How many armies would you like to attack with? You can attack with up to: " + (atkTerritory.getArmies()-1) + " armies.");
-        String input = in.nextLine();
-        int checker  = Integer.parseInt(input);
-        checks = checker;
+    public static ArrayList<Integer> attackRoll(Territory atkTerritory, int numArmies){
 
+        checks = numArmies;
         System.out.println("Attacker Rolling.");
 
         ArrayList<Integer> rolls = new ArrayList<>();
 
-        if (atkTerritory.getArmies()>= 4 && checker >= 3 && checker <= (atkTerritory.getArmies()-1)){
+        if (atkTerritory.getArmies()>= 4 && numArmies >= 3 && numArmies <= (atkTerritory.getArmies()-1)){
             for (int i = 0; i < 3; i++) {
                 rolls.add(roll());
             }
             numDice = 3;
         }
-        else if (atkTerritory.getArmies() >= 3 && checker == 2){
+        else if (atkTerritory.getArmies() >= 3 && numArmies == 2){
             for (int i = 0; i < 2; i++){
                 rolls.add(roll());
             }
             numDice = 2;
         }
-        else if (atkTerritory.getArmies() >= 2 && checker == 1){
+        else if (atkTerritory.getArmies() >= 2 && numArmies == 1){
             rolls.add(roll());
             numDice = 1;
         }
@@ -87,12 +82,12 @@ public class DiceRoller {
         return rolls;
     }
 
-    public static void attack(Territory atkTerritory, Territory defTerritory){
+    public static void attack(Territory atkTerritory, Territory defTerritory, int numArmies){
         if (defTerritory.getArmies() == 0){
             System.out.println("What? You shouldn't be able to see this. How are you attacking a territory that has no armies?");
             return;
         }
-        ArrayList<Integer> atkRolls = attackRoll(atkTerritory);
+        ArrayList<Integer> atkRolls = attackRoll(atkTerritory, numArmies);
         ArrayList<Integer> defRolls = defenseRoll(defTerritory);
         int numComparison = Math.min(atkRolls.size(), defRolls.size());
         for (int i = 0; i < numComparison; i++){
@@ -106,26 +101,22 @@ public class DiceRoller {
             }
         }
         if (defTerritory.getArmies() == 0){
-            setControl(atkTerritory, defTerritory);
+            setControl(atkTerritory, defTerritory, numArmies);
         }
     }
-    public static void setControl (Territory atkTerritory, Territory defTerritory){
-        Scanner in  = new Scanner(System.in);
-        System.out.println("How many armies would you like to assign to the garrison? You can assign up to: " + (checks) + " armies.");
-        String input = in.nextLine();
-        int checker = Integer.parseInt(input);
-        if (checker > checks){
+    public static void setControl (Territory atkTerritory, Territory defTerritory, int numArmies){
+        if (numArmies > checks){
             System.out.println("You do not have enough armies.");
-            setControl(atkTerritory, defTerritory);
+            setControl(atkTerritory, defTerritory, numArmies);
         }
-        else if (checker < numDice){
+        else if (numArmies < numDice){
             System.out.println("You need to garleast arison at rmies equal to the number of dice you rolled. You rolled: " + numDice + " dice.");
-            setControl(atkTerritory, defTerritory);
+            setControl(atkTerritory, defTerritory, numArmies);
         }
         else {
             defTerritory.setOwner("Placeholder");
-            defTerritory.setNumArmies(checker);
-            atkTerritory.setNumArmies(atkTerritory.getArmies()-checker);
+            defTerritory.setNumArmies(numArmies);
+            atkTerritory.setNumArmies(atkTerritory.getArmies()-numArmies);
             System.out.println(defTerritory.getOwner() + " now controls the territory.");
         }
     }
@@ -137,13 +128,13 @@ public class DiceRoller {
         System.out.println(t1.getArmies());
         System.out.println(t2.getArmies());
 
-        DiceRoller.attack(t1,t2);
+        DiceRoller.attack(t1,t2, 4);
         System.out.println(t1.getArmies());
         System.out.println(t2.getArmies());
-        DiceRoller.attack(t1,t2);
+        DiceRoller.attack(t1,t2, 3);
         System.out.println(t1.getArmies());
         System.out.println(t2.getArmies());
-        DiceRoller.attack(t1,t2);
+        DiceRoller.attack(t1,t2,1);
         System.out.println(t1.getArmies());
         System.out.println(t2.getArmies());
      */
