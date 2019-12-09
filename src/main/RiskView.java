@@ -1,10 +1,16 @@
 package main;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
+
+import java.util.ArrayList;
 
 /**
  * A border pane view for the risk GUI
@@ -54,9 +60,9 @@ public class RiskView {
         return scene;
     }
 
-    public RiskView(RiskModel theModel) {
+    public RiskView(RiskModel Model) {
 
-        this.theModel = theModel;
+        this.theModel = Model;
         this.endTurnBtn = new Button("End Turn");
         root = new BorderPane();
         root.setStyle("-fx-background-color: #dcc064");
@@ -105,14 +111,16 @@ public class RiskView {
         moveBtn = new Button("Move!");
         moveHBox.getChildren().addAll(new Label("Move to "), theModel.getMoveToCBox(), new Label(" with "), theModel.getNumMoveArmiesTField(), new Label(" Armies."), moveBtn);
 
+        VBox claimPlaceVBox = new VBox(5);
         claimBtn = new Button("Claim!");
         placeBtn = new Button("Place!");
+        claimPlaceVBox.getChildren().addAll(claimBtn, placeBtn);
 
-        controlPane.getChildren().addAll(attackHBox, moveHBox, claimBtn, placeBtn);
+        controlPane.getChildren().addAll(attackHBox, moveHBox);
         controlPane.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(controlPane, Pos.CENTER);
 
-        botTurnPane.getChildren().add(controlPane);
+        botTurnPane.getChildren().addAll(controlPane, new Separator(Orientation.VERTICAL), claimPlaceVBox);
         botTurnPane.setAlignment(Pos.CENTER);
         root.setBottom(botTurnPane);
         BorderPane.setAlignment(botTurnPane, Pos.CENTER);

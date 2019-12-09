@@ -1,6 +1,7 @@
 package main;
 
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
 public class RiskController {
@@ -43,7 +44,11 @@ public class RiskController {
 
         //move
         theView.getMoveBtn().setOnAction(event -> {
-            //TODO
+            try {
+                theModel.getGameManager().playerMoveArmies(theModel.getMoveToCBox().getValue(), Integer.parseInt(theModel.getNumMoveArmiesTField().getText()));
+            } catch (IlleagalTerritoryOpException e) {
+                showAlert();
+            }
         });
 
         //claim

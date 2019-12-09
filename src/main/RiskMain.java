@@ -37,6 +37,6 @@ public class RiskMain extends Application {
         primaryStage.setTitle("Risk Classic");
         primaryStage.setScene(scene);
         primaryStage.show();
-        System.out.println(theView.getMapPane().getWidth() + ", " + theView.getMapPane().getHeight());
+        //System.out.println(theView.getMapPane().getWidth() + ", " + theView.getMapPane().getHeight());
     }
 }

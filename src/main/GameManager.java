@@ -108,7 +108,7 @@ public class GameManager {
     }
 
     public void startTurn() {
-        if (numTerritoryClaimed == board.getTerritoryList().size() && state == GameStateEnum.CLAIM) {
+        if (numTerritoryClaimed >= board.getTerritoryList().size() && state == GameStateEnum.CLAIM) {
             state = GameStateEnum.SETUP;
         }
         if (mapPlayers.get(curPlayer.getValue()).getNumArmyLeft() <= 0) {
@@ -119,8 +119,14 @@ public class GameManager {
     }
 
 
-    public void playerMoveArmies(String territory, int numArmies) {
-        //TODO
+    public void playerMoveArmies(String territory, int numArmies) throws IlleagalTerritoryOpException {
+        if (state == GameStateEnum.PLAYING && mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && mapPlayers.get(curPlayer.getValue()).owns(territory) && board.getTerritories().get(selectedTerritory).getTerritory().getArmies() - 1 >= numArmies){
+            board.getTerritories().get(selectedTerritory).getTerritory().decreaseArmies(numArmies);
+            board.getTerritories().get(territory).getTerritory().increaseArmies(numArmies);
+        }
+        else {
+            throw new IlleagalTerritoryOpException();
+        }
     }
 
     public void playerAttack(String territory, int numArmies) throws IlleagalTerritoryOpException {

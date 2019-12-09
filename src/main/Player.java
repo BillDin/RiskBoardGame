@@ -24,10 +24,6 @@ public class Player {
         return territoryOwned.contains(territory);
     }
 
-    private void deployment(String territory){
-
-    }
-
     public int getNumArmyLeft() {
         return numArmyLeft;
     }
