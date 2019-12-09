@@ -22,6 +22,7 @@ public class RiskModel {
     private Label gameStateInfoLbl;
     private TextArea logTxtArea;
     private GameManager gameManager;
+    private TextFieldPrintStream textFieldPrintStream;
 
     public GameManager getGameManager() {
         return gameManager;
@@ -68,8 +69,10 @@ public class RiskModel {
         territoryInfoLbl = new Label("Click on a territory to see its info!");
         territoryInfoLbl.setWrapText(true);
 
+        logTxtArea = new TextArea();
+        this.textFieldPrintStream = new TextFieldPrintStream(System.out ,logTxtArea);
         this.board = new Board();
-        this.gameManager = new GameManager(board);
+        this.gameManager = new GameManager(board, textFieldPrintStream);
 
         attackToCBox = createTerritoryBox();
         numAttackArmiesTField = new TextField();
@@ -82,7 +85,6 @@ public class RiskModel {
         gameStateInfoLbl = new Label("Current Game State");
         gameStateInfoLbl.setWrapText(true);
 
-        logTxtArea = new TextArea();
     }
 
     public ComboBox<String> createTerritoryBox(){

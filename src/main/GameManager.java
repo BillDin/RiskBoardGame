@@ -1,25 +1,31 @@
 package main;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Chengcheng Ding
+ */
 public class GameManager {
 
     private Board board;
     private GameStateEnum state;
     private HashMap<Integer, Player> mapPlayers;
     private final int NUM_PLAYERS = 4;
+    private final int NUM_ARMIES = 50;
     private String selectedTerritory;
-    private int curPlayer;
+    private SimpleIntegerProperty curPlayer;
     private PrintStream logStream;
+    private int numTerritoryClaimed;
 
     public GameStateEnum getState() {
         return state;
     }
 
     public int getCurPlayer() {
-        return curPlayer;
+        return curPlayer.getValue();
     }
 
     public PrintStream getLogStream() {
@@ -34,12 +40,15 @@ public class GameManager {
         this.selectedTerritory = selectedTerritory;
     }
 
-    public GameManager(Board board){
-        this.curPlayer = 0;
+    public GameManager(Board board, TextFieldPrintStream textFieldPrintStream){
+        this.board = board;
+        this.curPlayer = new SimpleIntegerProperty(0);
+        this.logStream = textFieldPrintStream;
         mapPlayers = new HashMap<>();
         for (int i = 1; i <= NUM_PLAYERS; i++) {
-            mapPlayers.put(i, new Player(0));
+            mapPlayers.put(i, new Player(NUM_ARMIES));
         }
+        numTerritoryClaimed = 0;
     }
 
     /**
@@ -48,14 +57,16 @@ public class GameManager {
      * @author Chengcheng Ding
      */
     public void playerClaim() throws IlleagalTerritoryOpException {
-        //TODO: printstreams
         if (this.state == GameStateEnum.CLAIM){
             if (board.getTerritories().get(selectedTerritory).getTerritory().isClaimed()) {
                 throw new IlleagalTerritoryOpException();
             }
             else {
-                mapPlayers.get(curPlayer).claim(selectedTerritory);
+                mapPlayers.get(curPlayer.getValue()).claim(selectedTerritory);
                 board.getTerritories().get(selectedTerritory).getTerritory().claim();
+                numTerritoryClaimed += 1;
+                logStream.println("Player" + curPlayer + " claimed " + selectedTerritory);
+                nextTurn();
             }
         }
     }
@@ -66,10 +77,10 @@ public class GameManager {
      * @author Chengcheng Ding
      */
     public void playerPlaceTroop() throws IlleagalTerritoryOpException {
-        //TODO: printstreams
-        if (mapPlayers.get(curPlayer).owns(selectedTerritory) && state == GameStateEnum.SETUP) {
+        if (mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && state == GameStateEnum.SETUP && mapPlayers.get(curPlayer.getValue()).getNumArmyLeft() > 0) {
             board.getTerritories().get(selectedTerritory).getTerritory().increaseArmies(1);
-        }
+            logStream.println("Player" + curPlayer + " placed a troop at " + selectedTerritory);
+            }
         else {
             throw new IlleagalTerritoryOpException();
         }
@@ -77,22 +88,38 @@ public class GameManager {
 
     public void startGame(){
         this.state = GameStateEnum.CLAIM;
-        this.curPlayer = 1;
+        this.curPlayer.set(1);
     }
 
     public void nextTurn() {
-        if (this.curPlayer == 4) {
-            this.curPlayer = 1;
+        if (this.curPlayer.getValue()==4) {
+            this.curPlayer.set(1);
         }
         else {
-            curPlayer += 1;
+            curPlayer.add(1);
+        }
+        startTurn();
+    }
+
+    public void startTurn() {
+
+        //TODO add armies at the start of turn if playing
+
+        if (numTerritoryClaimed == board.getTerritoryList().size() && state == GameStateEnum.CLAIM) {
+            state = GameStateEnum.SETUP;
+        }
+        if (mapPlayers.get(curPlayer.getValue()).getNumArmyLeft() <= 0) {
+            if (state == GameStateEnum.SETUP) {
+                state = GameStateEnum.PLAYING;
+                logStream.println("Now Playing");
+            }
         }
     }
 
     //TODO: When to change state
 
     public void playerAttack(String territory) throws IlleagalTerritoryOpException {
-        if (!mapPlayers.get(curPlayer).owns(territory) || this.state != GameStateEnum.PLAYING){
+        if (!mapPlayers.get(curPlayer.getValue()).owns(territory) || this.state != GameStateEnum.PLAYING){
             throw new IlleagalTerritoryOpException();
         }
         else {

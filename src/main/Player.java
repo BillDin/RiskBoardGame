@@ -15,6 +15,7 @@ public class Player {
 
     public void claim(String territory) {
         territoryOwned.add(territory);
+        numArmyLeft -= 1;
     }
 
     public boolean owns(String territory) {

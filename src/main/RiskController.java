@@ -37,7 +37,7 @@ public class RiskController {
 
         //move
         theView.getMoveBtn().setOnAction(event -> {
-
+            //TODO
         });
 
         //claim
