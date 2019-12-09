@@ -46,7 +46,8 @@ public class GameManager {
         this.logStream = textFieldPrintStream;
         mapPlayers = new HashMap<>();
         for (int i = 1; i <= NUM_PLAYERS; i++) {
-            mapPlayers.put(i, new Player(NUM_ARMIES));
+            String playerName = "Player " + i;
+            mapPlayers.put(i, new Player(NUM_ARMIES, playerName));
         }
         numTerritoryClaimed = 0;
     }
@@ -66,6 +67,10 @@ public class GameManager {
                 board.getTerritories().get(selectedTerritory).getTerritory().claim();
                 numTerritoryClaimed += 1;
                 logStream.println("Player" + curPlayer + " claimed " + selectedTerritory);
+                board.getTerritories().get(selectedTerritory).getTerritory().setOwner(mapPlayers.get(curPlayer.getValue()).getName());;
+
+                System.out.println(curPlayer);
+
                 nextTurn();
             }
         }
@@ -96,7 +101,7 @@ public class GameManager {
             this.curPlayer.set(1);
         }
         else {
-            curPlayer.add(1);
+            this.curPlayer.set(curPlayer.getValue() + 1);
         }
         startTurn();
     }
