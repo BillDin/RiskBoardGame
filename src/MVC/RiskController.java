@@ -3,7 +3,7 @@ package MVC;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import GamePlay.GameStateEnum;
-import main.IlleagalTerritoryOpException;
+import exceptions.IlleagalTerritoryOpException;
 
 /**
  * The controller for the risk

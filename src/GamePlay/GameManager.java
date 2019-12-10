@@ -4,11 +4,15 @@ import GameGadgets.Board;
 import GameGadgets.Player;
 import GameGadgets.Territory;
 import MVC.TextFieldPrintStream;
+import javafx.beans.binding.When;
 import javafx.beans.property.SimpleIntegerProperty;
-import main.*;
+import exceptions.*;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * Manager for the whole game, like what we had in mastermind.
@@ -200,10 +204,9 @@ public class GameManager {
      * @throws IlleagalTerritoryOpException thrown for multiple bad choices (Moving more than you have, not in the correct state)
      */
     public void playerMoveArmies(String territory, int numArmies) throws IlleagalTerritoryOpException {
-        if (state == GameStateEnum.PLAYING && mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && mapPlayers.get(curPlayer.getValue()).owns(territory) && board.getTerritories().get(selectedTerritory).getTerritory().getArmies() - 1 >= numArmies){
+        if (state == GameStateEnum.PLAYING && mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && mapPlayers.get(curPlayer.getValue()).owns(territory) && board.getTerritories().get(selectedTerritory).getTerritory().getArmies() - 1 >= numArmies && canMoveTo(board.getTerritories().get(selectedTerritory).getTerritory(), board.getTerritories().get(territory).getTerritory())){
             board.getTerritories().get(selectedTerritory).getTerritory().decreaseArmies(numArmies);
             board.getTerritories().get(territory).getTerritory().increaseArmies(numArmies);
-            //TODO: find out if a territory is reachable
         }
         else {
             throw new IlleagalTerritoryOpException();
@@ -225,6 +228,38 @@ public class GameManager {
             Territory atkTerritory = board.getTerritories().get(selectedTerritory).getTerritory();
             Territory defTerritory = board.getTerritories().get(territory).getTerritory();
             DiceRoller.attack(atkTerritory,defTerritory,numArmies,logStream);
+        }
+    }
+
+    /**
+     * Check if a territory is reachable
+     * @param from place to move army from
+     * @param to place to move army to
+     * @return true if can move
+     */
+    public boolean canMoveTo(Territory from, Territory to) {
+        ArrayList<Territory> visited = new ArrayList<>();
+        Stack<Territory> stack = new Stack<>();
+        if (state == GameStateEnum.PLAYING && mapPlayers.get(curPlayer.get()).owns(from.getName()) && mapPlayers.get(curPlayer.get()).owns(to.getName())){
+            stack.push(from);
+            while (!stack.isEmpty()) {
+                Territory cur = stack.pop();
+                if (cur.equals(to)) {
+                    return true;
+                }
+                if ((!visited.contains(cur)) && mapPlayers.get(curPlayer.get()).owns(cur.getName())) {
+                    visited.add(from);
+                    for (Territory territory: from.getAdjacent()) {
+                        if (!visited.contains(territory)) {
+                            stack.push(territory);
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        else {
+            return false;
         }
     }
 

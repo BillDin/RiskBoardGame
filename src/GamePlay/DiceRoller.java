@@ -19,7 +19,7 @@
 
 package GamePlay;
 
-import main.IlleagalTerritoryOpException;
+import exceptions.IlleagalTerritoryOpException;
 import GameGadgets.Territory;
 
 import java.io.PrintStream;

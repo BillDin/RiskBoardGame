@@ -5,5 +5,5 @@ module csci205FinalProject {
     requires javafx.base;
     requires java.desktop;
 
-    opens main;
+    opens exceptions;
 }

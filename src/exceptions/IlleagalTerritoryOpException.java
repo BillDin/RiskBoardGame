@@ -1,4 +1,4 @@
-package main;
+package exceptions;
 
 /**
  * exception for illegal operations
