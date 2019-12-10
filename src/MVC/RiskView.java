@@ -67,6 +67,7 @@ public class RiskView {
         this.endTurnBtn = new Button("End Turn");
         root = new BorderPane();
         root.setStyle("-fx-background-color: #dcc064");
+        root.setMinSize(960, 540);
 
         //map center pane
         setUpMapCenterPane();
