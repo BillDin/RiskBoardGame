@@ -1,10 +1,12 @@
-package main;
+package MVC;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import GameGadgets.Board;
+import GamePlay.GameManager;
 
 /**
  * create the model(mostly based on the board)

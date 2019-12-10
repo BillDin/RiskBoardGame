@@ -1,6 +1,6 @@
-package main;
+package MVC;
 
-import javafx.beans.property.IntegerProperty;
+import GameGadgets.Territory;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;

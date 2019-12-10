@@ -17,7 +17,10 @@
  * ****************************************
  */
 
-package main;
+package GamePlay;
+
+import main.IlleagalTerritoryOpException;
+import GameGadgets.Territory;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

@@ -17,7 +17,10 @@
  * *****************************************/
 
 
-package main;
+package GameGadgets;
+
+import MVC.SVGEnum;
+import MVC.SVGTerritory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

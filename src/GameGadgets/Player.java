@@ -1,4 +1,4 @@
-package main;
+package GameGadgets;
 
 import java.util.ArrayList;
 

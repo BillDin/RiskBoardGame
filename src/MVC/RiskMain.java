@@ -1,11 +1,7 @@
-package main;
+package MVC;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 /**

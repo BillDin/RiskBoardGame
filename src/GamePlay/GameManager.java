@@ -1,6 +1,11 @@
-package main;
+package GamePlay;
 
+import GameGadgets.Board;
+import GameGadgets.Player;
+import GameGadgets.Territory;
+import MVC.TextFieldPrintStream;
 import javafx.beans.property.SimpleIntegerProperty;
+import main.*;
 
 import java.io.PrintStream;
 import java.util.HashMap;

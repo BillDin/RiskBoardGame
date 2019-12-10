@@ -1,4 +1,4 @@
-package main;
+package MVC;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -8,9 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.*;
-
-import java.util.ArrayList;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * A border pane view for the risk GUI

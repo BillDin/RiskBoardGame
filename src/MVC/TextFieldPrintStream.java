@@ -1,4 +1,4 @@
-package main;
+package MVC;
 
 import javafx.scene.control.TextArea;
 

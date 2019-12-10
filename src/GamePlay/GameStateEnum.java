@@ -1,4 +1,4 @@
-package main;
+package GamePlay;
 
 /**
  * states of the game

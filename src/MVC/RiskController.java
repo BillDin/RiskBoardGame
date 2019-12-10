@@ -1,8 +1,9 @@
-package main;
+package MVC;
 
 import javafx.scene.control.Alert;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import GamePlay.GameStateEnum;
+import main.IlleagalTerritoryOpException;
 
 /**
  * The controller for the risk
