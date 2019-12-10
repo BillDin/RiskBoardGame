@@ -19,6 +19,12 @@ public class GameManager {
     private SimpleIntegerProperty curPlayer;
     private PrintStream logStream;
     private int numTerritoryClaimed;
+    private HashMap<Integer,Integer> reinforcementMap;
+    private int winPlayer;
+
+    public int getWinPlayer() {
+        return winPlayer;
+    }
 
     public GameStateEnum getState() {
         return state;
@@ -50,6 +56,42 @@ public class GameManager {
             mapPlayers.put(i, new Player(NUM_ARMIES, playerName));
         }
         numTerritoryClaimed = 0;
+        reinforcementMap = new HashMap<>();
+        for (int i = 1; i < 42; i++) {
+            if (i < 12){
+                reinforcementMap.put(i,3);
+            }
+            else if (i < 15) {
+                reinforcementMap.put(i,4);
+            }
+            else if (i < 18) {
+                reinforcementMap.put(i,5);
+            }
+            else if (i < 21) {
+                reinforcementMap.put(i,6);
+            }
+            else if (i < 24) {
+                reinforcementMap.put(i,7);
+            }
+            else if (i < 27) {
+                reinforcementMap.put(i,8);
+            }
+            else if (i < 30) {
+                reinforcementMap.put(i,9);
+            }
+            else if (i < 33) {
+                reinforcementMap.put(i,10);
+            }
+            else if (i < 36) {
+                reinforcementMap.put(i,11);
+            }
+            else if (i < 39) {
+                reinforcementMap.put(i,12);
+            }
+            else {
+                reinforcementMap.put(i,13);
+            }
+        }
     }
 
     /**
@@ -80,12 +122,13 @@ public class GameManager {
      * @author Chengcheng Ding
      */
     public void playerPlaceTroop() throws IlleagalTerritoryOpException {
-        if (mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && state == GameStateEnum.SETUP && mapPlayers.get(curPlayer.getValue()).getNumArmyLeft() > 0) {
+        if (mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && (state == GameStateEnum.SETUP || state == GameStateEnum.PLAYING)&& mapPlayers.get(curPlayer.getValue()).getNumArmyLeft() > 0) {
             board.getTerritories().get(selectedTerritory).getTerritory().increaseArmies(1);
             logStream.println("Player" + curPlayer.getValue() + " placed a troop at " + selectedTerritory);
-
-            nextTurn();
+            if (state == GameStateEnum.SETUP) {
+                nextTurn();
             }
+        }
         else {
             throw new IlleagalTerritoryOpException();
         }
@@ -97,14 +140,19 @@ public class GameManager {
     }
 
     public void nextTurn() {
-        if (this.curPlayer.getValue()==4) {
-            this.curPlayer.set(1);
+        if (this.mapPlayers.get(curPlayer.get()).getTerritoryOwned().size() == board.getTerritoryList().size()) {
+            logStream.println(String.format("Player %s has won! Congratulation!", curPlayer.get()));
+            state = GameStateEnum.FINISHED;
+            winPlayer = curPlayer.get();
         }
         else {
-            this.curPlayer.set(curPlayer.getValue() + 1);
+            if (this.curPlayer.getValue() == 4) {
+                this.curPlayer.set(1);
+            } else {
+                this.curPlayer.set(curPlayer.getValue() + 1);
+            }
+            startTurn();
         }
-        startTurn();
-        //TODO: When to finish game
     }
 
     public void startTurn() {
@@ -116,6 +164,9 @@ public class GameManager {
                 state = GameStateEnum.PLAYING;
             }
         }
+        if (state == GameStateEnum.PLAYING) {
+            mapPlayers.get(curPlayer.get()).addNumArmyLeft(reinforcementMap.get(mapPlayers.get(curPlayer.get()).getTerritoryOwned().size()));
+        }
     }
 
 
@@ -123,6 +174,7 @@ public class GameManager {
         if (state == GameStateEnum.PLAYING && mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && mapPlayers.get(curPlayer.getValue()).owns(territory) && board.getTerritories().get(selectedTerritory).getTerritory().getArmies() - 1 >= numArmies){
             board.getTerritories().get(selectedTerritory).getTerritory().decreaseArmies(numArmies);
             board.getTerritories().get(territory).getTerritory().increaseArmies(numArmies);
+            //TODO: find out if a territory is reachable
         }
         else {
             throw new IlleagalTerritoryOpException();

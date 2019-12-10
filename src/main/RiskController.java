@@ -95,6 +95,13 @@ public class RiskController {
     public void updateInfo() {
         theModel.getPlayerNumLbl().setText("Player " + theModel.getGameManager().getCurPlayer());
         theModel.getGameStateInfoLbl().setText("Current State: " + theModel.getGameManager().getState().toString());
+        if (theModel.getGameManager().getState() == GameStateEnum.FINISHED) {
+            Alert congrat = new Alert(Alert.AlertType.INFORMATION);
+            congrat.setTitle("Congratulations!");
+            congrat.setHeaderText("You won!");
+            congrat.setContentText("The winner is: player " + theModel.getGameManager().getWinPlayer() + "!");
+            congrat.show();
+        }
     }
 
 }

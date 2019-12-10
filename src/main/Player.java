@@ -6,8 +6,11 @@ public class Player {
 
     private int numArmyLeft;
     private ArrayList<String> territoryOwned;
-    private boolean win;
     private String name;
+
+    public ArrayList<String> getTerritoryOwned() {
+        return territoryOwned;
+    }
 
     public Player(int numArmyLeft, String name) {
         this.numArmyLeft = numArmyLeft;
@@ -26,6 +29,10 @@ public class Player {
 
     public int getNumArmyLeft() {
         return numArmyLeft;
+    }
+
+    public void addNumArmyLeft(int numArmy) {
+        this.numArmyLeft += numArmy;
     }
 
     public void setNumArmyLeft(int numArmyLeft) {
