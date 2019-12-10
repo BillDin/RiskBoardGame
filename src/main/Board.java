@@ -81,6 +81,9 @@ public class Board {
     private ArrayList<Territory> territoryList;
     private HashMap<String, SVGTerritory> territories;
 
+    /**
+     * Constructor, set everything up.
+     */
     public Board(){
         territories = new HashMap<>();
         territoryList = new ArrayList<>();
@@ -104,7 +107,9 @@ public class Board {
     }
 
 
-
+    /**
+     * initialize territories
+     */
     private void initTerritories() {
         alaska = new Territory("Alaska");
         territoryList.add(alaska);
@@ -192,6 +197,9 @@ public class Board {
         territoryList.add(westAustralia);
     }
 
+    /**
+     * Set up a continent, recording the adjacent territories
+     */
     private void setupNorthAmerica() {
         //Alaska
         alaska.addAdjacent(kamchatka);
@@ -246,6 +254,9 @@ public class Board {
         westUS.addAdjacent(centralAmerica);
     }
 
+    /**
+     * Set up a continent, recording the adjacent territories
+     */
     private void setupSouthAmerica(){
         //Argentina
         argentina.addAdjacent(peru);
@@ -268,6 +279,9 @@ public class Board {
         venezuela.addAdjacent(peru);
     }
 
+    /**
+     * Set up a continent, recording the adjacent territories
+     */
     private void setupEurope(){
         //Iceland
         iceland.addAdjacent(greenland);
@@ -315,6 +329,9 @@ public class Board {
         ukraine.addAdjacent(scandanavia);
     }
 
+    /**
+     * Set up a continent, recording the adjacent territories
+     */
     private void setupAfrica(){
         //Egypt
         egypt.addAdjacent(southEurope);
@@ -352,6 +369,9 @@ public class Board {
         southAfrica.addAdjacent(madagascar);
     }
 
+    /**
+     * Set up a continent, recording the adjacent territories
+     */
     private void setupAsia(){
         //Middle East
         middleEast.addAdjacent(ukraine);
@@ -430,6 +450,9 @@ public class Board {
         japan.addAdjacent(kamchatka);
     }
 
+    /**
+     * Set up a continent, recording the adjacent territories
+     */
     private void setupAustralia(){
         //Indonesia
         indonesia.addAdjacent(siam);

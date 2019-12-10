@@ -67,35 +67,24 @@ public class RiskView {
         root = new BorderPane();
         root.setStyle("-fx-background-color: #dcc064");
 
-        //map pane
-        mapPane = new Pane();
-        mapPane.getChildren().addAll(theModel.getBoard().getTerritories().values());
-        mapPane.setStyle("-fx-background-color: #00FFFF");
-        BorderPane.setMargin(mapPane, new Insets(0));
-        root.setCenter(mapPane);
+        //map center pane
+        setUpMapCenterPane();
 
         //right info pane
-        VBox rightInfoPane = new VBox();
-        TextArea logTxtArea = theModel.getLogTxtArea();
-        logTxtArea.setPrefWidth(150);
-        logTxtArea.setDisable(true);
-        logTxtArea.setWrapText(true);
-        logTxtArea.setStyle("-fx-opacity: 1;" +
-                "-fx-background-color: #dcc064;" +
-                "-fx-font-size: 13;");
-        logTxtArea.appendText("Here are the logs!\n");
-        rightInfoPane.getChildren().add(logTxtArea);
-
-
-        rightInfoPane.getChildren().add(theModel.getTerritoryInfoLbl());
-        rightInfoPane.getChildren().addAll(theModel.getPlayerNumLbl(), theModel.getGameStateInfoLbl(), endTurnBtn);
-        root.setRight(rightInfoPane);
-        rightInfoPane.setAlignment(Pos.CENTER);
-        rightInfoPane.setPrefWidth(150);
-        BorderPane.setAlignment(rightInfoPane, Pos.CENTER);
-        BorderPane.setMargin(rightInfoPane, new Insets(0));
+        setUpRightInfoPane();
 
         //bot pane for turn control and players
+        setUpBotPane();
+
+
+        scene = new Scene(root);
+    }
+
+    /**
+     * set up the bottom pane designated for controls
+     * @author Chengcheng Ding
+     */
+    private void setUpBotPane() {
         HBox botTurnPane = new HBox(5);
 
         VBox controlPane = new VBox(5);
@@ -125,8 +114,41 @@ public class RiskView {
         root.setBottom(botTurnPane);
         BorderPane.setAlignment(botTurnPane, Pos.CENTER);
         BorderPane.setMargin(botTurnPane, new Insets(0));
+    }
+
+    /**
+     * set up the right pane for infos and logs
+     */
+    private void setUpRightInfoPane() {
+        VBox rightInfoPane = new VBox();
+        TextArea logTxtArea = theModel.getLogTxtArea();
+        logTxtArea.setPrefWidth(150);
+        logTxtArea.setDisable(true);
+        logTxtArea.setWrapText(true);
+        logTxtArea.setStyle("-fx-opacity: 1;" +
+                "-fx-background-color: #dcc064;" +
+                "-fx-font-size: 13;");
+        logTxtArea.appendText("Here are the logs!\n");
+        rightInfoPane.getChildren().add(logTxtArea);
 
 
-        scene = new Scene(root);
+        rightInfoPane.getChildren().add(theModel.getTerritoryInfoLbl());
+        rightInfoPane.getChildren().addAll(theModel.getPlayerNumLbl(), theModel.getGameStateInfoLbl(), endTurnBtn);
+        root.setRight(rightInfoPane);
+        rightInfoPane.setAlignment(Pos.CENTER);
+        rightInfoPane.setPrefWidth(150);
+        BorderPane.setAlignment(rightInfoPane, Pos.CENTER);
+        BorderPane.setMargin(rightInfoPane, new Insets(0));
+    }
+
+    /**
+     * set up the center pane for the map
+     */
+    private void setUpMapCenterPane() {
+        mapPane = new Pane();
+        mapPane.getChildren().addAll(theModel.getBoard().getTerritories().values());
+        mapPane.setStyle("-fx-background-color: #00FFFF");
+        BorderPane.setMargin(mapPane, new Insets(0));
+        root.setCenter(mapPane);
     }
 }

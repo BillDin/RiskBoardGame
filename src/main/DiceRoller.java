@@ -83,10 +83,9 @@ public class DiceRoller {
         return rolls;
     }
 
-    public static void attack(Territory atkTerritory, Territory defTerritory, int numArmies, PrintStream logStream){
+    public static void attack(Territory atkTerritory, Territory defTerritory, int numArmies, PrintStream logStream) throws IlleagalTerritoryOpException {
         if (defTerritory.getArmies() == 0){
-            System.out.println("What? You shouldn't be able to see this. How are you attacking a territory that has no armies?");
-            return;
+            throw new IlleagalTerritoryOpException();
         }
         ArrayList<Integer> atkRolls = attackRoll(atkTerritory, numArmies, logStream);
         ArrayList<Integer> defRolls = defenseRoll(defTerritory, logStream);

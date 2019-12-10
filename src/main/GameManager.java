@@ -6,7 +6,8 @@ import java.io.PrintStream;
 import java.util.HashMap;
 
 /**
- * @author Chengcheng Ding
+ * Manager for the whole game, like what we had in mastermind.
+ * @author Chengcheng Ding, John Owen
  */
 public class GameManager {
 
@@ -50,12 +51,16 @@ public class GameManager {
         this.board = board;
         this.curPlayer = new SimpleIntegerProperty(0);
         this.logStream = textFieldPrintStream;
+
         mapPlayers = new HashMap<>();
         for (int i = 1; i <= NUM_PLAYERS; i++) {
             String playerName = "Player " + i;
             mapPlayers.put(i, new Player(NUM_ARMIES, playerName));
         }
+
         numTerritoryClaimed = 0;
+
+        //a solution to too long 'if' statement for reinforcements
         reinforcementMap = new HashMap<>();
         for (int i = 1; i < 42; i++) {
             if (i < 12){
@@ -134,11 +139,19 @@ public class GameManager {
         }
     }
 
+    /**
+     * Basically start and initialize the game
+     * @author Chengcheng Ding
+     */
     public void startGame(){
         this.state = GameStateEnum.CLAIM;
         this.curPlayer.set(1);
     }
 
+    /**
+     * process to next turn (player), checking for change of states.
+     * @author Chengcheng Ding
+     */
     public void nextTurn() {
         if (this.mapPlayers.get(curPlayer.get()).getTerritoryOwned().size() == board.getTerritoryList().size()) {
             logStream.println(String.format("Player %s has won! Congratulation!", curPlayer.get()));
@@ -155,6 +168,10 @@ public class GameManager {
         }
     }
 
+    /**
+     * start a turn for a player.
+     * @author Chengcheng Ding
+     */
     public void startTurn() {
         if (numTerritoryClaimed >= board.getTerritoryList().size() && state == GameStateEnum.CLAIM) {
             state = GameStateEnum.SETUP;
@@ -170,6 +187,13 @@ public class GameManager {
     }
 
 
+    /**
+     * player move his/her army to adjacent territories
+     * @param territory target territory to move armies to
+     * @param numArmies number of armies to move
+     * @author Chengcheng Ding
+     * @throws IlleagalTerritoryOpException thrown for multiple bad choices (Moving more than you have, not in the correct state)
+     */
     public void playerMoveArmies(String territory, int numArmies) throws IlleagalTerritoryOpException {
         if (state == GameStateEnum.PLAYING && mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && mapPlayers.get(curPlayer.getValue()).owns(territory) && board.getTerritories().get(selectedTerritory).getTerritory().getArmies() - 1 >= numArmies){
             board.getTerritories().get(selectedTerritory).getTerritory().decreaseArmies(numArmies);
@@ -181,6 +205,13 @@ public class GameManager {
         }
     }
 
+    /**
+     * The player attack another territory owned by another player
+     * @param territory the territory to attack to
+     * @param numArmies number of armies to attack with
+     * @author Chengcheng Ding
+     * @throws IlleagalTerritoryOpException thrown for multiple bad choices (Attacking with more than 3, not in the correct state)
+     */
     public void playerAttack(String territory, int numArmies) throws IlleagalTerritoryOpException {
         if (!mapPlayers.get(curPlayer.getValue()).owns(territory) || this.state != GameStateEnum.PLAYING){
             throw new IlleagalTerritoryOpException();

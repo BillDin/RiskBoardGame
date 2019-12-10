@@ -1,5 +1,8 @@
 package main;
 
+/**
+ * states of the game
+ */
 public enum GameStateEnum {
 
     CLAIM,

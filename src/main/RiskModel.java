@@ -64,6 +64,10 @@ public class RiskModel {
         return territoryInfoLbl;
     }
 
+    /**
+     * Constructor of the model, setting up everything
+     * @author Chengcheng Ding
+     */
     public RiskModel() {
 
         territoryInfoLbl = new Label("Click on a territory to see its info!");
@@ -87,6 +91,10 @@ public class RiskModel {
 
     }
 
+    /**
+     * Create a combo box for all territories, useful for many situations
+     * @return the combo box of all territories
+     */
     public ComboBox<String> createTerritoryBox(){
         return new ComboBox<>(FXCollections.observableArrayList(board.getTerritories().keySet()));
     }

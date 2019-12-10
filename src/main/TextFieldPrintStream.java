@@ -7,6 +7,7 @@ import java.io.PrintStream;
 
 /**
  * An print stream that print stuff onto the log text area
+ * @author Chengcheng Ding
  */
 public class TextFieldPrintStream extends PrintStream {
 
