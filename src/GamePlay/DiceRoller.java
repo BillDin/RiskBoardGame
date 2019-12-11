@@ -33,6 +33,11 @@ public class DiceRoller {
     private static int numDice = 0;
 
     public static int roll(PrintStream logStream){
+        /**
+         * Generates a random number to create the result of a roll. Generates a number between 1-6, 10 times.
+         * to create the effect that a die is being rolled and it changes result 10 times before coming to a stop.
+         * @param logStream takes in the PrintStream to allow for the result to be sent to the log in the UI.
+         */
         Random random = new Random();
         int result = 0;
         for (int i = 0; i < 10; i++) {
@@ -45,7 +50,13 @@ public class DiceRoller {
     }
 
     public static ArrayList<Integer> attackRoll(Territory atkTerritory, int numArmies, PrintStream logStream){
-
+        /**
+         * Function for the attack roll. It checks the territory and how many armies the player wants to attack with.
+         * Places all rolls inside of an ArrayList of Integers to compare results later.
+         * @param atkTerritory takes in the territory that is making an attack roll.
+         * @param numArmies takes in an int in which is the number of armies that wants to attack with.
+         * @param logStream takes in the PrintStream to allow for the result to be sent to the log in the UI.
+         */
         checks = numArmies;
         logStream.println("Attacker Rolling.");
 
@@ -76,6 +87,12 @@ public class DiceRoller {
     }
 
     public static ArrayList<Integer> defenseRoll( Territory defTerritory, PrintStream logStream){
+        /**
+         * Function for the defense roll. It checks the territory and how many armies the player can defend with.
+         * Places all rolls inside of an ArrayList of Integers to compare results later.
+         * @param defTerritory takes in the territory that is making a defense roll.
+         * @param logStream takes in the PrintStream to allow for the result to be sent to the log in the UI.
+         */
         logStream.println("Defender Rolling.");
         ArrayList<Integer> rolls = new ArrayList<>();
 
@@ -87,6 +104,14 @@ public class DiceRoller {
     }
 
     public static void attack(Territory atkTerritory, Territory defTerritory, int numArmies, PrintStream logStream) throws IllegalTerritoryOpException {
+        /**
+         * Function that makes the attack. It takes the rolls of both an attack and defense and compare them.
+         * It uses the highest rolls on each side and compares them and decides the results.
+         * @param atkTerritory takes in the territory that is making an attack roll.
+         * @param defTerritory takes in the territory that is making a defense roll.
+         * @param numArmies takes in the number of armies that are attacking.
+         * @param logStream takes in the PrintStream to allow for the result to be sent to the log in the UI.
+         */
         if (defTerritory.getArmies() == 0){
             throw new IllegalTerritoryOpException();
         }
@@ -108,16 +133,24 @@ public class DiceRoller {
         }
     }
     public static void setControl (Territory atkTerritory, Territory defTerritory, int numArmies){
+        /**
+         * Function that sets the control of a territory after an attack. Checks to see if the number of armies
+         * being moved is a valid number.
+         * It uses the highest rolls on each side and compares them and decides the results.
+         * @param atkTerritory takes in the territory that is gaining control of defTerritory.
+         * @param defTerritory takes in the territory that is losing control to atkTerritory.
+         * @param numArmies takes in the number of armies that being moved to defTerritory.
+         */
         if (numArmies > checks){
             System.out.println("You do not have enough armies.");
             setControl(atkTerritory, defTerritory, numArmies);
         }
         else if (numArmies < numDice){
-            System.out.println("You need to garleast arison at rmies equal to the number of dice you rolled. You rolled: " + numDice + " dice.");
+            System.out.println("You need to garrison armies at least equal to the number of dice you rolled. You rolled: " + numDice + " dice.");
             setControl(atkTerritory, defTerritory, numArmies);
         }
         else {
-            defTerritory.setOwner("Placeholder");
+            defTerritory.setOwner(atkTerritory.getOwner());
             defTerritory.setNumArmies(numArmies);
             atkTerritory.setNumArmies(atkTerritory.getArmies()-numArmies);
             System.out.println(defTerritory.getOwner() + " now controls the territory.");
