@@ -25,6 +25,10 @@ import MVC.SVGTerritory;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Class to hold all territory classes
+ * @author John Owen
+ */
 public class Board {
 
     //North America
