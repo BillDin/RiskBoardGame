@@ -4,14 +4,12 @@ import GameGadgets.Board;
 import GameGadgets.Player;
 import GameGadgets.Territory;
 import MVC.TextFieldPrintStream;
-import javafx.beans.binding.When;
 import javafx.beans.property.SimpleIntegerProperty;
 import exceptions.*;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -110,13 +108,13 @@ public class GameManager {
 
     /**
      * a player claim a territory
-     * @throws IlleagalTerritoryOpException if the territory is already claimed
+     * @throws IllegalTerritoryOpException if the territory is already claimed
      * @author Chengcheng Ding
      */
-    public void playerClaim() throws IlleagalTerritoryOpException {
+    public void playerClaim() throws IllegalTerritoryOpException {
         if (this.state == GameStateEnum.CLAIM){
             if (board.getTerritories().get(selectedTerritory).getTerritory().isClaimed()) {
-                throw new IlleagalTerritoryOpException();
+                throw new IllegalTerritoryOpException();
             }
             else {
                 mapPlayers.get(curPlayer.getValue()).claim(selectedTerritory);
@@ -132,10 +130,10 @@ public class GameManager {
 
     /**
      * the player place troops
-     * @throws IlleagalTerritoryOpException if the player does own the territory
+     * @throws IllegalTerritoryOpException if the player does own the territory
      * @author Chengcheng Ding
      */
-    public void playerPlaceTroop() throws IlleagalTerritoryOpException {
+    public void playerPlaceTroop() throws IllegalTerritoryOpException {
         if (mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && (state == GameStateEnum.SETUP || state == GameStateEnum.PLAYING)&& mapPlayers.get(curPlayer.getValue()).getNumArmyLeft() > 0) {
             board.getTerritories().get(selectedTerritory).getTerritory().increaseArmies(1);
             logStream.println("Player" + curPlayer.getValue() + " placed a troop at " + selectedTerritory);
@@ -144,7 +142,7 @@ public class GameManager {
             }
         }
         else {
-            throw new IlleagalTerritoryOpException();
+            throw new IllegalTerritoryOpException();
         }
     }
 
@@ -159,7 +157,7 @@ public class GameManager {
 
     /**
      * process to next turn (player), checking for change of states.
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, John Owen
      */
     public void nextTurn() {
         if (this.mapPlayers.get(curPlayer.get()).getTerritoryOwned().size() == board.getTerritoryList().size()) {
@@ -201,15 +199,15 @@ public class GameManager {
      * @param territory target territory to move armies to
      * @param numArmies number of armies to move
      * @author Chengcheng Ding
-     * @throws IlleagalTerritoryOpException thrown for multiple bad choices (Moving more than you have, not in the correct state)
+     * @throws IllegalTerritoryOpException thrown for multiple bad choices (Moving more than you have, not in the correct state)
      */
-    public void playerMoveArmies(String territory, int numArmies) throws IlleagalTerritoryOpException {
+    public void playerMoveArmies(String territory, int numArmies) throws IllegalTerritoryOpException {
         if (state == GameStateEnum.PLAYING && mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && mapPlayers.get(curPlayer.getValue()).owns(territory) && board.getTerritories().get(selectedTerritory).getTerritory().getArmies() - 1 >= numArmies && canMoveTo(board.getTerritories().get(selectedTerritory).getTerritory(), board.getTerritories().get(territory).getTerritory())){
             board.getTerritories().get(selectedTerritory).getTerritory().decreaseArmies(numArmies);
             board.getTerritories().get(territory).getTerritory().increaseArmies(numArmies);
         }
         else {
-            throw new IlleagalTerritoryOpException();
+            throw new IllegalTerritoryOpException();
         }
     }
 
@@ -218,11 +216,11 @@ public class GameManager {
      * @param territory the territory to attack to
      * @param numArmies number of armies to attack with
      * @author Chengcheng Ding
-     * @throws IlleagalTerritoryOpException thrown for multiple bad choices (Attacking with more than 3, not in the correct state)
+     * @throws IllegalTerritoryOpException thrown for multiple bad choices (Attacking with more than 3, not in the correct state)
      */
-    public void playerAttack(String territory, int numArmies) throws IlleagalTerritoryOpException {
+    public void playerAttack(String territory, int numArmies) throws IllegalTerritoryOpException {
         if (!mapPlayers.get(curPlayer.getValue()).owns(territory) || this.state != GameStateEnum.PLAYING){
-            throw new IlleagalTerritoryOpException();
+            throw new IllegalTerritoryOpException();
         }
         else {
             Territory atkTerritory = board.getTerritories().get(selectedTerritory).getTerritory();

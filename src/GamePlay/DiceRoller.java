@@ -19,7 +19,7 @@
 
 package GamePlay;
 
-import exceptions.IlleagalTerritoryOpException;
+import exceptions.IllegalTerritoryOpException;
 import GameGadgets.Territory;
 
 import java.io.PrintStream;
@@ -86,9 +86,9 @@ public class DiceRoller {
         return rolls;
     }
 
-    public static void attack(Territory atkTerritory, Territory defTerritory, int numArmies, PrintStream logStream) throws IlleagalTerritoryOpException {
+    public static void attack(Territory atkTerritory, Territory defTerritory, int numArmies, PrintStream logStream) throws IllegalTerritoryOpException {
         if (defTerritory.getArmies() == 0){
-            throw new IlleagalTerritoryOpException();
+            throw new IllegalTerritoryOpException();
         }
         ArrayList<Integer> atkRolls = attackRoll(atkTerritory, numArmies, logStream);
         ArrayList<Integer> defRolls = defenseRoll(defTerritory, logStream);

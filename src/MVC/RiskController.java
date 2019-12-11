@@ -3,7 +3,7 @@ package MVC;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import GamePlay.GameStateEnum;
-import exceptions.IlleagalTerritoryOpException;
+import exceptions.IllegalTerritoryOpException;
 
 /**
  * The controller for the risk
@@ -56,58 +56,58 @@ public class RiskController {
 
     /**
      * Set up the place button
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, John Owen
      */
     private void placeControl() {
         theView.getPlaceBtn().setOnAction(event -> {
             try {
                 theModel.getGameManager().playerPlaceTroop();
                 updateInfo();
-            } catch (IlleagalTerritoryOpException e) {
-                showAlert();
+            } catch (IllegalTerritoryOpException e) {
+                e.showAlert("Illegal Operation; Cannot place troop on this territory");
             }
         });
     }
 
     /**
      * set up the claim Button
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, John Owen
      */
     private void claimControl() {
         theView.getClaimBtn().setOnAction(event -> {
             try {
                 theModel.getGameManager().playerClaim();
                 updateInfo();
-            } catch (IlleagalTerritoryOpException e) {
-                showAlert();
+            } catch (IllegalTerritoryOpException e) {
+                e.showAlert("Illegal Operation; Cannot claim this territory");
             }
         });
     }
 
     /**
      * set up the move control
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, John Owen
      */
     private void moveControl() {
         theView.getMoveBtn().setOnAction(event -> {
             try {
                 theModel.getGameManager().playerMoveArmies(theModel.getMoveToCBox().getValue(), Integer.parseInt(theModel.getNumMoveArmiesTField().getText()));
-            } catch (IlleagalTerritoryOpException e) {
-                showAlert();
+            } catch (IllegalTerritoryOpException e) {
+                e.showAlert("Illegal Operation; Cannot move troops to this territory");
             }
         });
     }
 
     /**
      * set up the attack button
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, John Owen
      */
     private void attackControl() {
         theView.getAttackBtn().setOnAction(event -> {
             try {
                 theModel.getGameManager().playerAttack(theModel.getAttackToCBox().getValue(), Integer.parseInt(theModel.getNumAttackArmiesTField().getText()));
-            } catch (IlleagalTerritoryOpException e) {
-                showAlert();
+            } catch (IllegalTerritoryOpException e) {
+                e.showAlert("Illegal Operation; Cannot attack this territory");
             }
         });
     }
@@ -134,18 +134,6 @@ public class RiskController {
                 svgTerritory.setFill(Color.GOLD);
             });
         }
-    }
-
-    /**
-     * show alert for the exception we designed
-     * @author Chengcheng Ding
-     */
-    public void showAlert() {
-        Alert illegalOpAlert = new Alert(Alert.AlertType.WARNING);
-        illegalOpAlert.setHeaderText("Illegal territory operation!");
-        illegalOpAlert.setTitle("Bad Boy!");
-        illegalOpAlert.setContentText("Illegal Operation! Probably the territory is not owned by you!");
-        illegalOpAlert.show();
     }
 
     /**

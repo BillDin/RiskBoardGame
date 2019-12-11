@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * A border pane view for the risk GUI
- * @author Chengcheng Ding
+ * @author Chengcheng Ding, John Owen
  */
 public class RiskView {
 
