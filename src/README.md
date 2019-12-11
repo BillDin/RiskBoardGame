@@ -10,6 +10,7 @@ Group Member: Chengcheng Ding & Zeming Chen & John Owen & Zachary Prince
 
 ## Brief Introduction:
 * Implementing Risk Board Game, its GUI and having multiplayer function.
+* For more detailed information, please go through UserManual
 
 ## Source referenced:
 * https://github.com/search?l=Java&q=risk+board+game&type=Repositories
