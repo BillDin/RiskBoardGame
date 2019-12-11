@@ -109,7 +109,7 @@ public class GameManager {
     /**
      * a player claim a territory
      * @throws IllegalTerritoryOpException if the territory is already claimed
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, Zeming Chen
      */
     public void playerClaim() throws IllegalTerritoryOpException {
         if (this.state == GameStateEnum.CLAIM){
@@ -131,7 +131,7 @@ public class GameManager {
     /**
      * the player place troops
      * @throws IllegalTerritoryOpException if the player does own the territory
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, Zeming Chen
      */
     public void playerPlaceTroop() throws IllegalTerritoryOpException {
         if (mapPlayers.get(curPlayer.getValue()).owns(selectedTerritory) && (state == GameStateEnum.SETUP || state == GameStateEnum.PLAYING)&& mapPlayers.get(curPlayer.getValue()).getNumArmyLeft() > 0) {
@@ -148,7 +148,7 @@ public class GameManager {
 
     /**
      * Basically start and initialize the game
-     * @author Chengcheng Ding
+     * @author Chengcheng Ding, Zeming Chen
      */
     public void startGame(){
         this.state = GameStateEnum.CLAIM;
@@ -198,7 +198,7 @@ public class GameManager {
      * player move his/her army to adjacent territories
      * @param territory target territory to move armies to
      * @param numArmies number of armies to move
-     * @author Chengcheng Ding
+     * @author Zeming Chen
      * @throws IllegalTerritoryOpException thrown for multiple bad choices (Moving more than you have, not in the correct state)
      */
     public void playerMoveArmies(String territory, int numArmies) throws IllegalTerritoryOpException {
@@ -215,7 +215,7 @@ public class GameManager {
      * The player attack another territory owned by another player
      * @param territory the territory to attack to
      * @param numArmies number of armies to attack with
-     * @author Chengcheng Ding
+     * @author Zeming Chen
      * @throws IllegalTerritoryOpException thrown for multiple bad choices (Attacking with more than 3, not in the correct state)
      */
     public void playerAttack(String territory, int numArmies) throws IllegalTerritoryOpException {

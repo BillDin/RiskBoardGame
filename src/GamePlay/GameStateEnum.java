@@ -2,6 +2,7 @@ package GamePlay;
 
 /**
  * states of the game
+ * @author Zeming Chen
  */
 public enum GameStateEnum {
 
