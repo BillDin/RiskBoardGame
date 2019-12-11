@@ -10,7 +10,7 @@ Group Member: Chengcheng Ding & Zeming Chen & John Owen & Zachary Prince
 
 ## Brief Introduction:
 * Implementing Risk Board Game, its GUI and having multiplayer function.
-* <p>Our class is a standard, modular MVC design - model for data, control for, well, control, </p>
+* Our class is a standard, modular MVC design - model for data, control for, well, control, \n
   <p>and view hooking up with javafx to show the game on the screen. The game itself is </p>
   <p>abstracted as game gadgets like territory and board. And there is a game manager </p>
   <p>class that basically takes care of all the calculations and set-ups backstage. </p>
