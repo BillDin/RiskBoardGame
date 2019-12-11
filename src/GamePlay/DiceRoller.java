@@ -146,11 +146,11 @@ public class DiceRoller {
             setControl(atkTerritory, defTerritory, numArmies);
         }
         else if (numArmies < numDice){
-            System.out.println("You need to garleast arison at rmies equal to the number of dice you rolled. You rolled: " + numDice + " dice.");
+            System.out.println("You need to garrison armies at least equal to the number of dice you rolled. You rolled: " + numDice + " dice.");
             setControl(atkTerritory, defTerritory, numArmies);
         }
         else {
-            defTerritory.setOwner("Placeholder");
+            defTerritory.setOwner(atkTerritory.getOwner());
             defTerritory.setNumArmies(numArmies);
             atkTerritory.setNumArmies(atkTerritory.getArmies()-numArmies);
             System.out.println(defTerritory.getOwner() + " now controls the territory.");
